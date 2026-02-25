@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerStats playerStats;
     private IMovement playerMovement;
     private ICombat playerCombat;
-    private ILight playerLight;
     void Awake()
     {
         playerMovement = gameObject.GetComponent<IMovement>();
@@ -24,10 +23,6 @@ public class Player : MonoBehaviour
         playerCombat = gameObject.GetComponent<ICombat>();
         if (playerCombat == null)
             playerCombat = gameObject.AddComponent<StunCombat>();
-
-        playerLight = gameObject.GetComponent<ILight>();
-        if (playerLight == null)
-            playerLight = gameObject.AddComponent<SpotLight>();
 
         playerMovement.Init(playerStats.Speed);
     }
