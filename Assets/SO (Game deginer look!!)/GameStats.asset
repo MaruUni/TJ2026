@@ -16,4 +16,7 @@ MonoBehaviour:
   teamColors:
   - {r: 0, g: 0.8051772, b: 1, a: 0}
   - {r: 1, g: 0, b: 0, a: 0}
-  RequiredLightHoldTime: 1
+  RequiredLightHoldTime: 0.5
+  CrystalCooldownTime: 10
+  CrystalIntensityWHileCooling: 3
+  CrystalIntensityWhilePicked: 1

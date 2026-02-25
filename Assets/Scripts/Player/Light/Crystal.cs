@@ -11,6 +11,7 @@ public class Crystal : MonoBehaviour
     private Light crystalLight;
     private bool isLit = false;
     private int lastTeamIndex = -1;
+    private bool cooldownActive = false;
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class Crystal : MonoBehaviour
 
     public void LightUp(int teamIndex)
     {
-        if (crystalLight.enabled) return; // Prevent multiple scoring while the crystal has just been lit
+        if (cooldownActive) return; // Prevent multiple scoring while the crystal has just been lit
 
         if (teamIndex == lastTeamIndex) return; // Prevent scoring if the same team tries to light the crystal again
 
@@ -38,6 +39,7 @@ public class Crystal : MonoBehaviour
 
         isLit = true;
         lastTeamIndex = teamIndex;
+        cooldownActive = true;
         StartCoroutine(TurnLightOff());
     }
 
@@ -45,11 +47,13 @@ public class Crystal : MonoBehaviour
     {
         crystalLight.color = GameManager.Instance.GetTeamColor(teamIndex);
         crystalLight.enabled = true;
+        crystalLight.intensity = GameManager.Instance.GetCrystalIntensityWhileCooling(); // You can adjust this value or make it a serialized field if you want different intensity for different crystals
     }
 
     IEnumerator TurnLightOff()
     {
-        yield return new WaitForSeconds(5f);
-        crystalLight.enabled = false;
+        yield return new WaitForSeconds(GameManager.Instance.GetCrystalCooldownTime());
+        crystalLight.intensity = GameManager.Instance.GetCrystalIntensityWhilePicked();
+        cooldownActive = false;
     }
 }

@@ -56,6 +56,21 @@ public class GameManager : Singleton<GameManager>
         return gameStats.Duration;
     }
 
+    public float GetCrystalCooldownTime()
+    {
+        return gameStats.CrystalCooldownTime;
+    }
+
+    public float GetCrystalIntensityWhileCooling()
+    {
+        return gameStats.CrystalIntensityWHileCooling;
+    }
+
+    public float GetCrystalIntensityWhilePicked()
+    {
+        return gameStats.CrystalIntensityWhilePicked;
+    }
+
     #endregion
 
     #region Score management
@@ -103,15 +118,15 @@ public class GameManager : Singleton<GameManager>
         yield return new WaitForSeconds(gameStats.Duration);
         if (teamScore[0] > teamScore[1])
         {
-            Debug.Log("Time's up! Team 0 wins!");
+            EndGame.Invoke(0);
         }
         else if (teamScore[1] > teamScore[0])
         {
-            Debug.Log("Time's up! Team 1 wins!");
+            EndGame.Invoke(1);
         }
         else
         {
-            Debug.Log("Time's up! It's a tie! Sudden death starts!");
+            suddenDeathEnabled = true;
         }
     }
     #endregion

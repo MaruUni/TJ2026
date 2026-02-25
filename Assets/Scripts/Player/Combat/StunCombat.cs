@@ -14,9 +14,10 @@ public class StunCombat : MonoBehaviour, ICombat
 
         foreach (Collider collider in collisions)
         {
-            StunCombat enemy = collider.GetComponent<StunCombat>();
+            StunCombat enemy = collider.gameObject.GetComponentInParent<StunCombat>();
             if (enemy != null && enemy != this)
             {
+                Debug.Log("Stun attack is hitting!");
                 enemy.GetHit(stunDuration);
             }
         }
