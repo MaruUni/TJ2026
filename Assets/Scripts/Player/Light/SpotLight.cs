@@ -1,41 +1,85 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class SpotLight : MonoBehaviour, ILight
+/// <summary>
+/// Represents a spotlight that detects and interacts with crystals within its range and angle of view.
+/// </summary>
+
+public class SpotLight : AbstractLight
 {
-    int teamIndex;
-    private void Awake()
-    {
-        if (gameObject.CompareTag("Player1"))
-        {
-            teamIndex = 0;
-        }
-        else if (gameObject.CompareTag("Player2"))
-        {
-            teamIndex = 1;
-        }
-    }
+    [SerializeField] private float viewRange = 3f;
+    [SerializeField] private float viewAngle = 40f; 
+    private Dictionary<Crystal, float> detectionTimers = new ();
+    private HashSet<Crystal> detectedThisFrame = new ();
 
-    private void FixedUpdate()
+    /// <summary>
+    /// Detect if any crystals are within the spotlight's range and angle, and if there is a clear line of sight to them. If so, call to crystal method to light it up.
+    /// </summary>
+    protected override void DetectLightCollision()
     {
-        LightCrystal();
-    }
+        // Get all colliders inside a sphere around the player with a radius of viewRange
+        Collider[] hits = Physics.OverlapSphere(transform.position, viewRange);
 
-    public void LightCrystal()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, 5f))
+        if (hits.Length == 0) return; // No colliders in range, skip
+
+        foreach (var hit in hits)
         {
-            Debug.Log(hit.transform.name);
-            ICrystal crystal = hit.transform.GetComponent<ICrystal>();
-            if (crystal != null)
+            if (!hit.transform.TryGetComponent<Crystal>(out var crystal)) continue; // Skip if it's not a crystal
+
+            Vector3 dirToTarget = (hit.transform.position - transform.position).normalized;
+
+            // Check angle
+            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
             {
-                Debug.Log("I HIT A CRYSTAL " + teamIndex);
-                crystal.LightUp(teamIndex);
+                // Check line of sight
+                if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rh, viewRange))
+                {
+                    if (rh.collider == hit)
+                    {
+                        detectedThisFrame.Add(crystal);
+
+                        // increase or start timer for this crystal
+                        if (detectionTimers.ContainsKey(crystal))
+                            detectionTimers[crystal] += Time.deltaTime;
+                        else
+                            detectionTimers[crystal] = Time.deltaTime;
+
+                        if (detectionTimers[crystal] >= requiredHoldTime) 
+                        { 
+                            crystal.LightUp(teamIndex);
+                            detectionTimers[crystal] = 0f; // reset timer after lighting up
+                        }
+                    }
+
+                }
             }
         }
+
+        // Reset timers for crystals not detected this frame
+        foreach (var dictionaryCrystal in detectionTimers.Keys.ToList())
+        {
+            if (!detectedThisFrame.Contains(dictionaryCrystal))
+                detectionTimers[dictionaryCrystal] = 0f;
+        }
+
+        detectedThisFrame.Clear();
     }
-    public void ExecuteAbility(LightAbilityType abilityType)
+
+    /// <summary>
+    /// To visualize the spotlight's range and angle in the editor
+    /// </summary>
+    void OnDrawGizmosSelected()
     {
-        throw new System.NotImplementedException();
+        // Sphere
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, viewRange);
+
+        // Cone edges
+        Gizmos.color = Color.cyan;
+        Vector3 left = Quaternion.Euler(0, -viewAngle, 0) * transform.forward;
+        Vector3 right = Quaternion.Euler(0, viewAngle, 0) * transform.forward;
+        Gizmos.DrawRay(transform.position, left * viewRange);
+        Gizmos.DrawRay(transform.position, right * viewRange);
     }
 }

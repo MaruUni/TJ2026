@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc1ab9e6e29d0c4b997ebda43a3faeb, type: 3}
   m_Name: GameStats
   m_EditorClassIdentifier: Assembly-CSharp::GameStats
+  Duration: 120
+  teamColors:
+  - {r: 0, g: 0.8051772, b: 1, a: 0}
+  - {r: 1, g: 0, b: 0, a: 0}
+  RequiredLightHoldTime: 1
