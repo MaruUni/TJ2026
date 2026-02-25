@@ -2,17 +2,18 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// This class is responsible for managing the score UI, it listens to the GameManager's ChangeScore event and updates the score display accordingly. Singleton because there can only be an instance of this in scene (but not called from anywhere really)
+/// This class is responsible for managing the score UI, it listens to the GameManager's ChangeScore event and updates the score display accordingly.
 /// </summary>
-public class ScoreUIManager : Singleton<ScoreUIManager>
+public class ScoreUIManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI[] teamScoreTexts;
+    [SerializeField] private TextMeshProUGUI[] teamScoreTexts = new TextMeshProUGUI[2];
+    [SerializeField] private TextMeshProUGUI timerText;
+    float timePassed = 0;
+    [SerializeField] private GameObject endGamePanel; // TODO: This is a temporary solution
 
-    private void Start()
+    private void Awake()
     {
-        // TODO: Once everything is more stablished we should add a way to ensure this is always assigned
-        // This is also going to be a problem 100% when we have multiple scenes because it is not destroyable on load and im not doing anything about it!
-        // In the future it shouldnt be initialized on inspector but found on the scene and it should also be reset on scene change
+        // TODO: Once everything is more stablished we should add a way to ensure this is always assigned instead of manually checking the inspector, maybe with a tag or something like that
         if (teamScoreTexts == null)
         {
             Debug.LogWarning("Team score texts not assigned in the inspector, unless you want to see a sea of red on the console you should add them :)");
@@ -20,19 +21,44 @@ public class ScoreUIManager : Singleton<ScoreUIManager>
 
         teamScoreTexts[0].text = "0";
         teamScoreTexts[1].text = "0";
+
+        timerText.text = GameManager.Instance.GetGameDuration().ToString("F2");
+
+        endGamePanel.SetActive(false);
     }
+
     private void OnEnable()
     {
-        GameManager.Instance.ChangeScore += UpdateScoreUI;
+        GameManager.Instance.UpdateUIScore += UpdateScoreUI;
+        GameManager.Instance.EndGame += EndGameUI;
     }
     private void OnDisable()
     {
-        GameManager.Instance.ChangeScore -= UpdateScoreUI;
+        GameManager.Instance.UpdateUIScore -= UpdateScoreUI;
+        GameManager.Instance.EndGame -= EndGameUI;
+    }
+
+    void Update()
+    {
+        UpdateTimer();
     }
 
     void UpdateScoreUI(int teamIndex, int teamScore)
     {
-       Debug.Log($"Updating score UI for team {teamIndex} with new score {teamScore}");
         teamScoreTexts[teamIndex].text = teamScore.ToString();
+    }
+
+    void UpdateTimer()
+    {
+        timePassed += Time.deltaTime;
+        int currentTime = Mathf.CeilToInt(GameManager.Instance.GetGameDuration() - timePassed);
+
+        timerText.text = currentTime.ToString();
+    }
+
+    void EndGameUI(int winningTeamIndex)
+    {
+        Debug.Log($"Team {winningTeamIndex} wins!");
+        endGamePanel.SetActive(true);
     }
 }

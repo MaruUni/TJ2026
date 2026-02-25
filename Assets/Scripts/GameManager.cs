@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -9,7 +11,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] GameStats gameStats;
     int[] teamScore = new int[2] { 0, 0 };
     bool suddenDeathEnabled = false;
-    public event System.Action<int, int> ChangeScore;
+    public event System.Action<int, int> UpdateUIScore;
+    public event System.Action<int> EndGame;
+    int maxScore;
 
     private void Start()
     {
@@ -24,13 +28,16 @@ public class GameManager : Singleton<GameManager>
 
     public void ResetGame()
     {
-        teamScore[0] = 0; 
-        ChangeScore?.Invoke(0, 0);
-        teamScore[1] = 0;
-        ChangeScore?.Invoke(1, 0);
-        suddenDeathEnabled = false;
         StopAllCoroutines();
-        
+
+        maxScore = FindObjectsByType<Crystal>(FindObjectsSortMode.None).Length;
+
+        teamScore[0] = 0;
+        UpdateUIScore?.Invoke(0, 0);
+        teamScore[1] = 0;
+        UpdateUIScore?.Invoke(1, 0);
+
+        suddenDeathEnabled = false;
     }
 
     #region Get global game stats
@@ -39,15 +46,25 @@ public class GameManager : Singleton<GameManager>
         return gameStats.teamColors[teamIndex];
     }
 
+    public float GetRequiredLightHoldTime()
+    {
+        return gameStats.RequiredLightHoldTime;
+    }
+
+    public float GetGameDuration()
+    {
+        return gameStats.Duration;
+    }
+
     #endregion
 
     #region Score management
 
-    public void AddToScore(int teamIndex)
+    public void ChangeScore(int teamIndex, int scoreChange)
     {
-        teamScore[teamIndex]++;
-        Debug.Log($"Team {teamIndex} scored! Current score: {teamScore[0]} - {teamScore[1]}");
-        ChangeScore?.Invoke(teamIndex, teamScore[teamIndex]);
+        teamScore[teamIndex] += scoreChange;
+        Debug.Log($"Team {teamIndex} score changed! Current score: {teamScore[0]} - {teamScore[1]}");
+        UpdateUIScore?.Invoke(teamIndex, teamScore[teamIndex]);
         CheckWinCondition();
     }
 
@@ -60,23 +77,23 @@ public class GameManager : Singleton<GameManager>
         if (!suddenDeathEnabled)
         {
 
-            if (teamScore[0] >= gameStats.MaxScore)
+            if (teamScore[0] >= maxScore)
             {
-                Debug.Log("Team 0 wins!");
+                EndGame.Invoke(0);
             }
-            else if (teamScore[1] >= gameStats.MaxScore)
+            else if (teamScore[1] >= maxScore)
             {
-                Debug.Log("Team 1 wins!");
+                EndGame.Invoke(1);
             }
         } else
         {
             if (teamScore[0] > teamScore[1])
             {
-                Debug.Log("Sudden death! Team 0 wins!");
+                EndGame.Invoke(0);
             }
             else if (teamScore[1] > teamScore[0])
             {
-                Debug.Log("Sudden death! Team 1 wins!");
+                EndGame.Invoke(1);
             }
         }
     }
