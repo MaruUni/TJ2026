@@ -16,7 +16,7 @@ public class BasicMovement : MonoBehaviour, IMovement
     private void Motion()
     {
         // Movement
-        Vector3 motionVector = new Vector3(moveInput.x, 0f, moveInput.y);
+        Vector3 motionVector = new Vector3(moveInput.x, 0, moveInput.y);
         float motionMagnitude = motionVector.magnitude;
 
         // rotate to face the movement direction

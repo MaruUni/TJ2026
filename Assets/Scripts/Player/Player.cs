@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     public void Attack(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
-            playerCombat.Attack(1f);
+            playerCombat.Attack(2f);
     }
 
     public void Parry(InputAction.CallbackContext ctx)
