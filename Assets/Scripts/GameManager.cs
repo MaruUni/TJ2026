@@ -43,7 +43,12 @@ public class GameManager : Singleton<GameManager>
     #region Get global game stats
     public Color GetTeamColor(int teamIndex)
     {
-        return gameStats.teamColors[teamIndex];
+        return gameStats.teamColor[teamIndex];
+    }
+
+    public Material GetTeamEmissiveMaterial(int teamIndex)
+    {
+        return gameStats.teamEmissiveMaterial[teamIndex];
     }
 
     public float GetRequiredLightHoldTime()
@@ -59,16 +64,6 @@ public class GameManager : Singleton<GameManager>
     public float GetCrystalCooldownTime()
     {
         return gameStats.CrystalCooldownTime;
-    }
-
-    public float GetCrystalIntensityWhileCooling()
-    {
-        return gameStats.CrystalIntensityWHileCooling;
-    }
-
-    public float GetCrystalIntensityWhilePicked()
-    {
-        return gameStats.CrystalIntensityWhilePicked;
     }
 
     #endregion

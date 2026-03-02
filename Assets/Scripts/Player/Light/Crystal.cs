@@ -8,6 +8,9 @@ using UnityEngine;
 [RequireComponent(typeof(Light))]
 public class Crystal : MonoBehaviour
 {
+    [SerializeField] float intensityWhileUnpicked = 0f; // Intensity of the crystal light when it's unlit and not picked.
+    [SerializeField] float intensityWhilePicked = 0.5f; // Intensity of the crystal light when it's unlit but picked.
+    [SerializeField] float intensityWhileCooling = 3f; // Intensity of the crystal light when it has just been lit and is in cooldown.
     private Light crystalLight;
     private bool isLit = false;
     private int lastTeamIndex = -1;
@@ -16,7 +19,7 @@ public class Crystal : MonoBehaviour
     private void Awake()
     {
         crystalLight = GetComponent<Light>();
-        crystalLight.enabled = false;
+        crystalLight.intensity = intensityWhileUnpicked; // Set initial intensity to the "unpicked" value, which is the default state of the crystal
     }
 
     public void LightUp(int teamIndex)
@@ -27,33 +30,31 @@ public class Crystal : MonoBehaviour
 
         if (isLit) // A different team is trying to light the crystal, add to their score and subtract from the previous team score
         {
-            TurnLightOn(teamIndex);
             GameManager.Instance.ChangeScore(teamIndex, 1);
             GameManager.Instance.ChangeScore(lastTeamIndex, -1);
         }
         else // Crystal lit for the first time, just add to the team's score
         {
-            TurnLightOn(teamIndex);
             GameManager.Instance.ChangeScore(teamIndex, 1);
         }
 
-        isLit = true;
-        lastTeamIndex = teamIndex;
-        cooldownActive = true;
-        StartCoroutine(TurnLightOff());
+        TurnLightOn(teamIndex);
     }
 
     void TurnLightOn(int teamIndex)
     {
+        lastTeamIndex = teamIndex;
+        isLit = true;
+        cooldownActive = true;
         crystalLight.color = GameManager.Instance.GetTeamColor(teamIndex);
-        crystalLight.enabled = true;
-        crystalLight.intensity = GameManager.Instance.GetCrystalIntensityWhileCooling(); // You can adjust this value or make it a serialized field if you want different intensity for different crystals
+        crystalLight.intensity = intensityWhileCooling; // You can adjust this value or make it a serialized field if you want different intensity for different crystals
+        StartCoroutine(TurnLightOff());
     }
 
     IEnumerator TurnLightOff()
     {
         yield return new WaitForSeconds(GameManager.Instance.GetCrystalCooldownTime());
-        crystalLight.intensity = GameManager.Instance.GetCrystalIntensityWhilePicked();
+        crystalLight.intensity = intensityWhilePicked;
         cooldownActive = false;
     }
 }

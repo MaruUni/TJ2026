@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -7,16 +8,10 @@ using UnityEngine;
 interface IMovement
 {
     /// <summary>
-    /// Initialize the movement with the given speed. This should be called when the movement is first assigned to the player.
+    /// Initialize movement parameters. This should be called when the movement is first assigned to the player.
     /// </summary>
     /// <param name="speed"></param>
-    void Init(float speed);
-
-    /// <summary>
-    /// To change speed during the game
-    /// </summary>
-    /// <param name="speed"></param>
-    void ChangeSpeed(float speed);
+    void Init(float speed, float dashIncrement, int teamIndex);
 
     /// <summary>
     /// Primary movement method. Should be called every frame in the player class, and it should move the player according to the given horizontal and vertical input.
@@ -26,13 +21,13 @@ interface IMovement
     void Move(float horizontal, float vertical);
 
     /// <summary>
-    /// For when the player is hit by an attack or something that affects movement, this method should be called with the duration of the effect.
+    /// Start coroutine to stop player movement for a given amount of time.
     /// </summary>
 
-    void DisableMovement(float duration);
+    IEnumerator DisableMovement(float duration);
 
     /// <summary>
-    /// Player abilities related to movement (e.g. dash, teleport...). Should be called when the player uses an ability, and it should execute the ability according to the given type.
+    /// Player abilities related to movement (e.g. dash, teleport...).
     /// </summary>
     /// <param name="abilityType"></param>
     void ExecuteAbility(MovementAbilityType abilityType);

@@ -1,4 +1,3 @@
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,17 +13,22 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerStats playerStats;
     private IMovement playerMovement;
     private ICombat playerCombat;
+    int teamIndex = -1;
+
     void Awake()
     {
         playerMovement = gameObject.GetComponent<IMovement>();
-        if (playerMovement == null)
-            playerMovement = gameObject.AddComponent<BasicMovement>();
+        playerMovement ??= gameObject.AddComponent<BasicMovement>();
 
         playerCombat = gameObject.GetComponent<ICombat>();
-        if (playerCombat == null)
-            playerCombat = gameObject.AddComponent<StunCombat>();
+        playerCombat ??= gameObject.AddComponent<StunCombat>();
 
-        playerMovement.Init(playerStats.Speed);
+        if (CompareTag("Player1"))
+            teamIndex = 0;
+        else
+            teamIndex = 1;
+
+        playerMovement.Init(playerStats.Speed, playerStats.DashIncrement, teamIndex);
     }
 
     #region Player input
@@ -43,6 +47,12 @@ public class Player : MonoBehaviour
     {
         if (ctx.performed)
             playerCombat.Parry();
+    }
+
+    public void Dash(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+            playerMovement.ExecuteAbility(MovementAbilityType.Dash);
     }
 
     #endregion
