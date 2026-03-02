@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: GameStats
   m_EditorClassIdentifier: Assembly-CSharp::GameStats
   Duration: 120
-  teamColors:
-  - {r: 0, g: 0.8051772, b: 1, a: 0}
-  - {r: 1, g: 0, b: 0, a: 0}
+  teamColor:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  teamEmissiveMaterial:
+  - {fileID: 2100000, guid: a1e2bc239b1d60044a7cd98413048d6e, type: 2}
+  - {fileID: 2100000, guid: e1685f431a614fe42a5b4fdc9e9d8b95, type: 2}
   RequiredLightHoldTime: 0.5
   CrystalCooldownTime: 10
-  CrystalIntensityWHileCooling: 3
-  CrystalIntensityWhilePicked: 1

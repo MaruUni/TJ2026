@@ -29,7 +29,7 @@ public class StunCombat : MonoBehaviour, ICombat
         {
             Debug.Log("Player got hit and is unprotected");
             IMovement movement = GetComponent<IMovement>();
-            movement.DisableMovement(attackEffect.Value);
+            StartCoroutine(movement.DisableMovement(attackEffect.Value));
         }
         else
         {
