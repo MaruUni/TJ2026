@@ -60,10 +60,9 @@ public class BasicMovement : MonoBehaviour, IMovement
 
     #region IMovement implementation
 
-    void IMovement.Init(float _speed, float _dashIncrement, int _teamIndex)
+    void IMovement.Init(float _speed, int _teamIndex)
     {
         speed = _speed;
-        dashIncrement = _dashIncrement;
 
         // Add trailRenderer material, it is linked to the team index to change color accordingly
         List<Material> trailRendererMats = new();
