@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 /// <summary>
 /// Base class for the player
@@ -39,14 +40,31 @@ public class Player : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
-            playerCombat.Attack(1f);
+        // TODO: is it a bug that charging sparks appear when light attacking?
+
+        if (ctx.interaction is TapInteraction)
+        {
+            if (ctx.performed)
+                playerCombat.ExecuteAttack(false);
+        }
+
+        if (ctx.interaction is HoldInteraction)
+        {
+            if (ctx.started)
+                playerCombat.ChargeAttack();
+
+            if (ctx.canceled)
+                playerCombat.InterruptCharge();
+
+            if (ctx.performed)
+                playerCombat.ExecuteAttack(true);
+        }
     }
 
     public void Parry(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
-            playerCombat.Parry();
+        if (ctx.canceled)
+            StartCoroutine(playerCombat.ParryAttack());
     }
 
     public void Dash(InputAction.CallbackContext ctx)

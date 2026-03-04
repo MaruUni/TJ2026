@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Player1
   - Player2
+  - ParrySparkParticles
+  - ChargeAttackParticles
+  - AttackParticles
   layers:
   - Default
   - TransparentFX
