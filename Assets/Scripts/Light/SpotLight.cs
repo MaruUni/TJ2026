@@ -35,7 +35,6 @@ public class SpotLight : AbstractLight
                 // Check line of sight
                 if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rh, viewRange, detectCrystalMask))
                 {
-                    Debug.Log(rh.collider == hit);
                     if (rh.collider == hit)
                     {
                         detectedThisFrame.Add(crystal);

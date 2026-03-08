@@ -32,5 +32,5 @@ interface ICombat
     /// When the player is hit by an attack, this method should be called with the attack duration. 
     /// <para>It should execute the defense according to the given attack effect (e.g. reduce health, apply knockback, etc.)</para>
     /// </summary>
-    void ReceiveAttack(float attackDuration, bool unableToParry = false);
+    void ReceiveAttack(float attackDuration, bool unableToParry);
 }
