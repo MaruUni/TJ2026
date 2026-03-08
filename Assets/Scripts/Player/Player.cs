@@ -12,6 +12,7 @@ using UnityEngine.InputSystem.Interactions;
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerStats playerStats;
+    private InputAction attackHoldAction;
     private IMovement playerMovement;
     private ICombat playerCombat;
     int teamIndex = -1;
@@ -30,6 +31,8 @@ public class Player : MonoBehaviour
             teamIndex = 1;
 
         playerMovement.Init(playerStats.Speed, teamIndex);
+
+        attackHoldAction = gameObject.GetComponent<PlayerInput>().actions.FindAction("Attack");
     }
 
     #region Player input
@@ -71,6 +74,12 @@ public class Player : MonoBehaviour
     {
         if (ctx.performed)
             StartCoroutine(playerMovement.Dash(false));
+    }
+
+    public void CancelAttack()
+    {
+        attackHoldAction.Disable();
+        attackHoldAction.Enable();
     }
 
     #endregion

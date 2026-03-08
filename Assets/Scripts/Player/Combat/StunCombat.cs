@@ -7,6 +7,7 @@ public class StunCombat : MonoBehaviour, ICombat
 {
 
     private IMovement playerMovement;
+    private Player player;
 
     private AbstractLight playerLight;
 
@@ -33,6 +34,7 @@ public class StunCombat : MonoBehaviour, ICombat
     void Awake()
     {
         playerMovement = GetComponent<IMovement>();
+        player = GetComponent<Player>();
 
         // Initialize player light
         playerLight = GetComponentInChildren<AbstractLight>();
@@ -114,7 +116,7 @@ public class StunCombat : MonoBehaviour, ICombat
             StunCombat enemy = collider.gameObject.GetComponentInParent<StunCombat>();
             if (enemy != null && enemy != this)
             {
-                enemy.ReceiveAttack(lightStunDuration);
+                enemy.ReceiveAttack(lightStunDuration, true);
             }
         }
     }
@@ -151,37 +153,37 @@ public class StunCombat : MonoBehaviour, ICombat
     #region Hurt and parry methods
     public IEnumerator ParryAttack()
     {
+        Debug.Log("parry");
         isProtectedByParry = true;
         yield return new WaitForSeconds(1f);
         isProtectedByParry = false;
 
     }
 
-    public void ReceiveAttack(float attackDuration, bool unableToParry = false)
+    public void ReceiveAttack(float attackDuration, bool unableToParry)
     {
         if (isProtectedByTimeout) return; // can't be attacked while cooling down another attack
 
-        if ((!isProtectedByParry || unableToParry))
-        {
-            // turn off light
-            lightOffDuration = attackDuration;
-            playerLight.TurnOff();
-
-            // enable protection so that player can recover
-            timeoutDuration = attackDuration + 1.0f;
-            isProtectedByTimeout = true;
-
-            // interrupt player attacks
-            if (isChargingAttack)
-                InterruptCharge();  // TODO: this doesnt do anything on the actual attack
-
-            // stun effect
-            StartCoroutine(playerMovement.DisableMovement(attackDuration));
-        }
-        else
+        if (isProtectedByParry && !unableToParry)
         {
             parrySparks.Play();
+            return;
         }
+
+        // turn off light
+        lightOffDuration = attackDuration;
+        playerLight.TurnOff();
+
+        // enable protection so that player can recover
+        timeoutDuration = attackDuration + 1.0f;
+        isProtectedByTimeout = true;
+
+        // interrupt player attacks
+        if (isChargingAttack)
+            player.CancelAttack();
+
+        // stun effect
+        StartCoroutine(playerMovement.DisableMovement(attackDuration));
     }
 
     void TimeOut()
