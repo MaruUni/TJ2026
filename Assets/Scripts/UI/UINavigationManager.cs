@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 /// <para> To switch between scenes call LoadScene</para>
 /// <para> To reload game call ReloadScene</para>
 /// </summary>
-public class UINavigationManager : MonoBehaviour
+public class UINavigationManager : Singleton<UINavigationManager>
 {
 
     [SerializeField] private ScreenName _firstShownScreenName; // the screen that will first be visible on the canvas when the scene starts
@@ -19,8 +19,10 @@ public class UINavigationManager : MonoBehaviour
     /// <summary>
     /// Enables all screens on Awake so they can be initialized
     /// </summary>
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         UIScreen[] screensUnderManager = GetComponentsInChildren<UIScreen>(true);
 
         foreach (UIScreen screen in screensUnderManager)
@@ -45,7 +47,7 @@ public class UINavigationManager : MonoBehaviour
             _screens.Add(screen.GetName(), screen);
         }
 
-        ShowScreen(_firstShownScreenName.ToString()); // show the first screen
+        ShowScreen(_firstShownScreenName); // show the first screen
     }
 
     #region Screen navigation related methods
@@ -56,11 +58,11 @@ public class UINavigationManager : MonoBehaviour
     /// </summary>
     /// <param name="screenName"></param>
     /// <param name="hidePreviousScreen"></param>
-    public void ShowScreen(string screenName, bool hidePreviousScreen = true)
+    public void ShowScreen(ScreenName screenName, bool hidePreviousScreen = true)
     {
         // try to find the screen by its name on the dictionary
         UIScreen screenToSwitch;
-        bool foundScreen = _screens.TryGetValue(screenName, out screenToSwitch);
+        bool foundScreen = _screens.TryGetValue(screenName.ToString(), out screenToSwitch);
 
         if (!foundScreen)
         {
@@ -79,8 +81,7 @@ public class UINavigationManager : MonoBehaviour
     /// <summary>
     /// Hide current screen. Useful for popups
     /// </summary>
-    /// <param name="screenName"></param>
-    public void HideScreen(string screenName)
+    public void HideCurrentScreen()
     {
         _currentScreen?.Hide();
     }

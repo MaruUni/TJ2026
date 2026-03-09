@@ -2,16 +2,19 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// This class is responsible for managing the score UI, it listens to the GameManager's ChangeScore event and updates the score display accordingly.
+/// This class is responsible for managing the in game UI (score, timer...), it listen's to GameManager events.
 /// </summary>
 public class GameUIManager : MonoBehaviour
 {
+    #region Variables
     [SerializeField] private TextMeshProUGUI[] teamScoreTexts = new TextMeshProUGUI[2];
     [SerializeField] private TextMeshProUGUI timerText;
     float timePassed = 0;
-    [SerializeField] private GameObject endGamePanel; // TODO: This is a temporary solution
 
     bool timeBelowZero = false;
+    #endregion
+
+    #region Monobehaviour
 
     private void Awake()
     {
@@ -25,9 +28,15 @@ public class GameUIManager : MonoBehaviour
         teamScoreTexts[1].text = "0";
 
         timerText.text = GameManager.Instance.GetGameDuration().ToString("F2");
-
-        endGamePanel.SetActive(false);
     }
+    void Update()
+    {
+        if (!timeBelowZero)
+            UpdateTimer();
+    }
+    #endregion
+
+    #region Event listeners setup
 
     private void OnEnable()
     {
@@ -39,13 +48,9 @@ public class GameUIManager : MonoBehaviour
         GameManager.Instance.UpdateUIScore -= UpdateScoreUI;
         GameManager.Instance.EndGame -= EndGameUI;
     }
+    #endregion
 
-    void Update()
-    {
-        if (!timeBelowZero)
-            UpdateTimer();
-    }
-
+    #region Update score, timer and player stuff
     void UpdateScoreUI(int teamIndex, int teamScore)
     {
         teamScoreTexts[teamIndex].text = teamScore.ToString();
@@ -55,14 +60,20 @@ public class GameUIManager : MonoBehaviour
     {
         timePassed += Time.deltaTime;
         int currentTime = Mathf.CeilToInt(GameManager.Instance.GetGameDuration() - timePassed);
-        if (currentTime <= 0) timeBelowZero = true;
+        if (currentTime <= 0)
+        {
+            timeBelowZero = true;
+            GameManager.Instance.TimerEnded(); // Notify GameManager of timer end
+        }
 
         timerText.text = currentTime.ToString();
     }
+    #endregion
 
+    #region Victory screen
     void EndGameUI(int winningTeamIndex)
     {
-        Debug.Log($"Team {winningTeamIndex} wins!");
-        endGamePanel.SetActive(true);
+        UINavigationManager.Instance.ShowScreen(ScreenName.Victory);
     }
+    #endregion
 }

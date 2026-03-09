@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -8,10 +7,30 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] GameStats gameStats;
     int[] teamScore = new int[2] { 0, 0 };
+
+    public int[] TeamScore { get { return teamScore; } }
+
     bool suddenDeathEnabled = false;
-    public event System.Action<int, int> UpdateUIScore;
-    public event System.Action<int> EndGame;
+
+    public bool SuddenDeathEnabled { get { return suddenDeathEnabled; } }
+
     int maxScore;
+
+    /// <summary>
+    /// Event fires when score changes
+    /// <para>&lt;Team 1 score, team 2 score&gt;</para>
+    /// </summary>
+    public event System.Action<int, int> UpdateUIScore;
+    /// <summary>
+    /// Event fires when player has consumed stamina
+    /// <para>&lt;Player index, Amount of Stamina consumed&gt;</para>
+    /// </summary>
+    public event System.Action<int, int> PlayerStaminaConsumption;
+    /// <summary>
+    /// Event fires when game ends
+    /// <para> Returns winning team index</para>
+    /// </summary>
+    public event System.Action<int> EndGame;
 
     private void Start()
     {
@@ -21,7 +40,6 @@ public class GameManager : Singleton<GameManager>
         }
 
         ResetGame();
-        StartCoroutine(CounterCoroutine());
     }
 
     public void ResetGame()
@@ -104,9 +122,8 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    IEnumerator CounterCoroutine()
+    public void TimerEnded()
     {
-        yield return new WaitForSeconds(gameStats.GameDuration);
         if (teamScore[0] > teamScore[1])
         {
             EndGame.Invoke(0);

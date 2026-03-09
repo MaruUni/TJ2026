@@ -14,7 +14,7 @@ public class UIScreen : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Show()
+    virtual public void Show()
     {
         gameObject.SetActive(true);
     }
