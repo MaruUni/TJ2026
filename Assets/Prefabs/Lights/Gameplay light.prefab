@@ -113,6 +113,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpotLight
   viewRange: 8
   viewAngle: 50
+  detectCrystalMask:
+    serializedVersion: 2
+    m_Bits: 55
 --- !u!114 &2034727136796585702
 MonoBehaviour:
   m_ObjectHideFlags: 0

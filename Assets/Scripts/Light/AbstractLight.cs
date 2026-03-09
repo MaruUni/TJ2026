@@ -11,6 +11,7 @@ using UnityEngine;
 public abstract class AbstractLight : MonoBehaviour
 {
     private Light light;
+    private bool lightCollisionEnabled = true;
     /// <summary>
     /// Team index of the player that owns this light, used to determine which team gets the score when lighting up a crystal and what color the light should be.
     /// </summary>
@@ -39,7 +40,10 @@ public abstract class AbstractLight : MonoBehaviour
     }
     private void Update()
     {
-        DetectLightCollision();
+        if (lightCollisionEnabled)
+        {
+            DetectLightCollision();
+        }
     }
 
     /// <summary>
@@ -52,11 +56,13 @@ public abstract class AbstractLight : MonoBehaviour
 
     public void TurnOn()
     {
+        lightCollisionEnabled = true;
         light.enabled = true;
     }
 
     public void TurnOff()
     {
+        lightCollisionEnabled = false;
         light.enabled = false;
     }
 }

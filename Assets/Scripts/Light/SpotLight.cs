@@ -9,7 +9,8 @@ using UnityEngine;
 public class SpotLight : AbstractLight
 {
     [SerializeField] private float viewRange = 3f;
-    [SerializeField] private float viewAngle = 40f; 
+    [SerializeField] private float viewAngle = 40f;
+    [SerializeField] private LayerMask detectCrystalMask;
     private Dictionary<Crystal, float> detectionTimers = new ();
     private HashSet<Crystal> detectedThisFrame = new ();
 
@@ -20,7 +21,6 @@ public class SpotLight : AbstractLight
     {
         // Get all colliders inside a sphere around the player with a radius of viewRange
         Collider[] hits = Physics.OverlapSphere(transform.position, viewRange);
-
         if (hits.Length == 0) return; // No colliders in range, skip
 
         foreach (var hit in hits)
@@ -33,17 +33,20 @@ public class SpotLight : AbstractLight
             if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
             {
                 // Check line of sight
-                if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rh, viewRange))
+                if (Physics.Raycast(transform.position, dirToTarget, out RaycastHit rh, viewRange, detectCrystalMask))
                 {
                     if (rh.collider == hit)
                     {
                         detectedThisFrame.Add(crystal);
-
+                        
                         // increase or start timer for this crystal
                         if (detectionTimers.ContainsKey(crystal))
                             detectionTimers[crystal] += Time.deltaTime;
                         else
+                        {
+                            crystal.ReclaimingStarted();
                             detectionTimers[crystal] = Time.deltaTime;
+                        }
 
                         if (detectionTimers[crystal] >= requiredHoldTime) 
                         { 
@@ -60,7 +63,10 @@ public class SpotLight : AbstractLight
         foreach (var dictionaryCrystal in detectionTimers.Keys.ToList())
         {
             if (!detectedThisFrame.Contains(dictionaryCrystal))
-                detectionTimers[dictionaryCrystal] = 0f;
+            {
+                dictionaryCrystal.ReclaimingCanceled();
+                detectionTimers.Remove(dictionaryCrystal);
+            }
         }
 
         detectedThisFrame.Clear();
