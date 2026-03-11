@@ -18,6 +18,7 @@ public class Crystal : MonoBehaviour
 
     private Light crystalLight;
     private bool isLit = false;
+    // By default using generic color
     private int teamCaptured = 2;
     private bool cooldownActive = false;
     private ParticleSystem particles;
@@ -74,10 +75,12 @@ public class Crystal : MonoBehaviour
     {
         // Just set some parameters for crystal capture
         Debug.Log("Reclaiming started");
-        var particleMain = particles.main;
-        particleMain.startColor = teamsColor[teamCaptured];
-        particles.Play();
     }
+
+    // TODO: Esto debería pasar cada vez que se ilumina un cristal que puede ser capturado
+    //var particleMain = particles.main;
+    //particleMain.startColor = teamsColor[teamCaptured];
+        //particles.Play();
 
     // TODO: Connect the lights color to the color of the team in the GameManager
 
