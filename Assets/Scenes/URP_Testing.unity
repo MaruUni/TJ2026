@@ -580,10 +580,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crystal
       objectReference: {fileID: 0}
-    - target: {fileID: 7931645933371335586, guid: 591a34dab362a7640bd404fe14034658, type: 3}
-      propertyPath: inactiveResetTime
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8393564880521486373, guid: 591a34dab362a7640bd404fe14034658, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.1

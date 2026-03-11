@@ -18,7 +18,7 @@ public class Crystal : MonoBehaviour
 
     private Light crystalLight;
     private bool isLit = false;
-    private int teamCaptured = -1;
+    private int teamCaptured = 2;
     private bool cooldownActive = false;
     private ParticleSystem particles;
 
@@ -74,7 +74,9 @@ public class Crystal : MonoBehaviour
     {
         // Just set some parameters for crystal capture
         Debug.Log("Reclaiming started");
-        isBeingReclaimed = true;
+        var particleMain = particles.main;
+        particleMain.startColor = teamsColor[teamCaptured];
+        particles.Play();
     }
 
     // TODO: Connect the lights color to the color of the team in the GameManager
@@ -99,12 +101,8 @@ public class Crystal : MonoBehaviour
         float deltaTime = Time.deltaTime;
         float capturePointsGained = deltaTime * reclaimPointsPerSecond;
         reclaimPointsCurrent += capturePointsGained;
-        isBeingReclaimed = true;
 
         IncreaseCaptureLight(teamIndex);
-
-        Debug.Log($"TeamIndex: {teamIndex}, LightIntensity: {crystalLight.intensity}, reclaimPointsCurrent: {reclaimPointsCurrent}");
-
 
         if (reclaimPointsCurrent >= reclaimPointsTotal) // Check if crystal is captured
         {
@@ -151,7 +149,6 @@ public class Crystal : MonoBehaviour
 
     void TurnLightOn(int teamIndex)
     {
-        particles.Play();
         isLit = true;
         cooldownActive = true;
         crystalLight.color = GameManager.Instance.GetTeamColor(teamIndex);
@@ -191,8 +188,10 @@ public class Crystal : MonoBehaviour
     /// <returns></returns>
     public bool CanStartReclaim(int teamIndex)
     {
-
-        return (!cooldownActive && teamIndex != teamCaptured && reclaimPointsCurrent == 0);
+        Debug.Log($"{!cooldownActive}, {reclaimPointsCurrent}");
+        // return (!cooldownActive && reclaimPointsCurrent <= 1);
+        // TODO: ADD FLAG TO KNOW WHEN IS THE FIRST FRAME RECLAIMING THE CRYSTAL
+        return false;
     }
 
     private void ManageTeamsReclaim()
@@ -201,11 +200,6 @@ public class Crystal : MonoBehaviour
         {
             // Both team are reclaiming
             inactiveCountdown = 0f;
-
-            if (name == "Crystal")
-                Debug.Log("Both teams are reclaiming the crystal, it's contested!\n" +
-                     $"Points maintained at: {reclaimPointsCurrent}");
-
             crystalLight.color = teamsColor[2]; // Set color to neutral when contested
         }
         else if (teamsReclaiming[0] == true)
@@ -248,7 +242,6 @@ public class Crystal : MonoBehaviour
     {
         teamsReclaiming[teamIndex] = true;
     }
-
 
 }
 
