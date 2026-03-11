@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,6 +15,20 @@ public class SpotLight : AbstractLight
     private Dictionary<Crystal, float> detectionTimers = new ();
     private HashSet<Crystal> detectedThisFrame = new ();
 
+    private void Start()
+    {
+        Light flashlight = gameObject.GetComponent<Light>();
+        if (flashlight == null)
+        {
+            Debug.LogError("CAN NOT FIND LIGHT COMPONENT ON PLAYER GAMEPLAY LIGHT, CHECK CHILDREN");
+        }
+        else
+        {
+            Debug.Log($"Player {name} index {teamIndex}");
+            flashlight.color = GameManager.Instance.GetTeamColor(teamIndex);
+        }
+
+    }
     /// <summary>
     /// Detect if any crystals are within the spotlight's range and angle, and if there is a clear line of sight to them. If so, call to crystal method to light it up.
     /// </summary>

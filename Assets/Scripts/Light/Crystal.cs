@@ -205,6 +205,8 @@ public class Crystal : MonoBehaviour
             if (name == "Crystal")
                 Debug.Log("Both teams are reclaiming the crystal, it's contested!\n" +
                      $"Points maintained at: {reclaimPointsCurrent}");
+
+            crystalLight.color = teamsColor[2]; // Set color to neutral when contested
         }
         else if (teamsReclaiming[0] == true)
         {
