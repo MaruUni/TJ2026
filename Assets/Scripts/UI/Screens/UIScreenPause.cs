@@ -9,6 +9,6 @@ public class UIScreenPause : UIScreen
     override public void Show()
     {
         GameManager.Instance.PauseGame();
-        gameObject.SetActive(true);
+        base.Show();
     }
 }

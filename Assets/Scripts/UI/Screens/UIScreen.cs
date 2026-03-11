@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UIScreen : MonoBehaviour
 {
     [SerializeField] protected ScreenName screenName;
+    [SerializeField] protected GameObject firstToNavigate;
 
     public string GetName()
     {
@@ -17,5 +20,6 @@ public class UIScreen : MonoBehaviour
     virtual public void Show()
     {
         gameObject.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(firstToNavigate);
     }
 }
