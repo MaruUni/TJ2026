@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Crystal class, attached to the crystal game objects. 
@@ -32,11 +33,30 @@ public class Crystal : MonoBehaviour
 
 
     // Capture flags
-    private List<bool> teamsReclaiming = new List<bool> { false, false };
+    // This can and might be done in a single List (memory optimization)
+    private List<bool> teamsReclaiming           = new List<bool> { false, false };
+    private List<bool> teamsReclaimingPrevFrame  = new List<bool> { false, false };
+    private List<bool> teamsReclaimingFirstFrame = new List<bool> { false, false };
+
     [SerializeField] float inactiveResetTime = 1f;
     private float inactiveCountdown = 0f;
     private float inactiveMinusPointsPerSecond = 10f;
     private Action inactiveActionPerFrame;
+
+
+    // Reclaiming callbacks
+    // TODO: Can be converted to public events
+    public  Action<int> reclaimingStartedCallback;
+    private Action<int> reclaimingUpdateCallback;
+    public  Action<int> reclaimingFinishedCallback;
+
+    public  UnityEvent contestedStartedCallback;
+    private UnityEvent contestedUpdateCallback;
+    public  UnityEvent contestedFinishedCallback;
+
+    public  UnityEvent cooldownStartedCallback;
+    private UnityEvent cooldownUpdateCallback;
+    public  UnityEvent cooldownFinishedCallback;
 
 
 
@@ -64,7 +84,91 @@ public class Crystal : MonoBehaviour
     private void LateUpdate()
     {
         ManageTeamsReclaim();
+        UpdateTeamsReclaimingList();
     }
+
+
+
+
+    private void ManageTeamsReclaim()
+    {
+        if (teamsReclaiming[0] == true && teamsReclaiming[1] == true)
+        {
+            if (!teamsReclaimingPrevFrame[0] || !teamsReclaimingPrevFrame[1])   // Check if this was the first frame of both teams reclaiming
+                contestedStartedCallback.Invoke();
+
+            // Both team are reclaiming
+            contestedUpdateCallback.Invoke();
+            inactiveCountdown = 0f;
+            crystalLight.color = teamsColor[2]; // Set color to neutral when contested
+
+        }
+        else if (teamsReclaiming[0] == true)
+        {
+            // Team 1 is reclaiming
+            inactiveCountdown = 0f;
+            ReclaimingPerforming(0, GameManager.Instance.GetReclaimCrystalPointsPerSecond());
+
+        }
+        else if (teamsReclaiming[1] == true)
+        {
+            // Team 2 is reclaiming
+            inactiveCountdown = 0f;
+            ReclaimingPerforming(1, GameManager.Instance.GetReclaimCrystalPointsPerSecond());
+
+        }
+        else
+        {
+            // No team is reclaiming
+            inactiveCountdown += Time.deltaTime;
+            inactiveActionPerFrame.Invoke();
+        }
+
+
+
+    }
+
+
+    private void UpdateTeamsReclaimingList()
+    {
+        teamsReclaimingPrevFrame[0] = teamsReclaiming[0];
+        teamsReclaimingPrevFrame[1] = teamsReclaiming[1];
+
+        if (teamsReclaiming[0] && !teamsReclaimingPrevFrame[0])
+        {
+            teamsReclaimingFirstFrame[0] = true;
+        }
+        else
+        {
+            teamsReclaimingFirstFrame[0] = false;
+        }
+
+        if (teamsReclaiming[1] && !teamsReclaimingPrevFrame[1])
+        {
+            teamsReclaimingFirstFrame[1] = true;
+        }
+        else
+        {
+            teamsReclaimingFirstFrame[1] = false;
+        }
+
+        teamsReclaiming[0] = false;
+        teamsReclaiming[1] = false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /// <summary>
@@ -197,38 +301,7 @@ public class Crystal : MonoBehaviour
         return false;
     }
 
-    private void ManageTeamsReclaim()
-    {
-        if (teamsReclaiming[0] == true && teamsReclaiming[1] == true)
-        {
-            // Both team are reclaiming
-            inactiveCountdown = 0f;
-            crystalLight.color = teamsColor[2]; // Set color to neutral when contested
-        }
-        else if (teamsReclaiming[0] == true)
-        {
-            // Team 1 is reclaiming
-            inactiveCountdown = 0f;
-            ReclaimingPerforming(0, GameManager.Instance.GetReclaimCrystalPointsPerSecond());
 
-        }
-        else if (teamsReclaiming[1] == true)
-        {
-            // Team 2 is reclaiming
-            inactiveCountdown = 0f;
-            ReclaimingPerforming(1, GameManager.Instance.GetReclaimCrystalPointsPerSecond());
-
-        }
-        else
-        {
-            // No team is reclaiming
-            inactiveCountdown += Time.deltaTime;
-            inactiveActionPerFrame.Invoke();
-        }
-
-        teamsReclaiming[0] = false;
-        teamsReclaiming[1] = false;
-    }
 
     private void InactiveReset()
     {
