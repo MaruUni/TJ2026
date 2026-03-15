@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5740680269989789573}
   - component: {fileID: 7931645933371335586}
   - component: {fileID: 1945625049616731527}
+  - component: {fileID: 7520093514281665875}
   m_Layer: 0
   m_Name: Crystal
   m_TagString: Untagged
@@ -170,6 +171,28 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!95 &7520093514281665875
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316670898158648603}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 80e3f4f1ec9ce9446940bdd02cdae779, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5072228283655858340
 GameObject:
   m_ObjectHideFlags: 0
