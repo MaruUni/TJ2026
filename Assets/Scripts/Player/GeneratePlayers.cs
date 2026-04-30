@@ -6,6 +6,7 @@ using UnityEngine;
 public class GeneratePlayers : MonoBehaviour
 {
     [SerializeField] GameObject[] players = new GameObject[2];
+    [SerializeField] Material[] parryMaterials = new Material[2];
     [SerializeField] Transform[] startPosition = new Transform[2];
 
     private void Awake()
@@ -23,6 +24,7 @@ public class GeneratePlayers : MonoBehaviour
                     GameObject instanciated = Instantiate(p);
                     instanciated.transform.position = startPosition[i].position;
                     instanciated.tag = i == 0 ? "Player1" : "Player2";
+                    ConfigureParryMaterials(instanciated, i);
                     ConfigCharacterLayer(instanciated, i);
                     ConfigCharacterRenderLayerMask(instanciated, i);
                     instanciated.SetActive(true);
@@ -30,6 +32,20 @@ public class GeneratePlayers : MonoBehaviour
                 }
             }
         }       
+    }
+
+    private void ConfigureParryMaterials(GameObject player, int teamIndex)
+    {
+        // Set the parry material of the player's renderers to the appropriate team material
+        Material parryMaterial = parryMaterials[teamIndex];
+        MeshRenderer[] meshRenderers = player.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer meshRenderer in meshRenderers)
+        {
+            if (meshRenderer.gameObject.CompareTag("ParrySphere"))
+            {
+                meshRenderer.material = parryMaterial;
+            }
+        }
     }
 
     private void ConfigCharacterLayer(GameObject player, int teamIndex)

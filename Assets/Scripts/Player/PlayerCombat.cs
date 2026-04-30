@@ -43,7 +43,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     // Visual effects
     private ParticleSystem stunBurstParticles;
     private ParticleSystem stunIdleParticles;
-    private ParticleSystem parryingSparks;
     private ParticleSystem chargeSparks;
     private ParticleSystem attackSparks;
     private ParticleSystem healParticles;
@@ -53,12 +52,18 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private List<Material> groovyOutlineMaterials = new List<Material>();
     private float currentThickness = 0f;
     private float targetThickness = 0f;
-    private float interpolationSpeed = 0f;
+    private float goInterpolationSpeed = 0f;
     private const float desiredThickness = 0.05f;
     private Color outlineColor;
 
     // Death materials
     private List<Material> deathOutlineMaterials;
+
+    // Parry material
+    Material parryMat;
+    private float currentTransparency = 0f;
+    private float targetTransparency = 0f;
+    private float pInterpolationSpeed = 0f;
 
     // Boolean control
     private bool isProtectedByParry = false;
@@ -138,11 +143,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
                 attackSparks = particle;
                 Debug.Log(player.GetTeamIndex() + " Tag: AttackParticles, Name: " + particle.gameObject.name);
             }
-            else if (particle.gameObject.CompareTag("ParryingParticles"))
-            {
-                parryingSparks = particle;
-                Debug.Log(player.GetTeamIndex() + " Tag: ParryingParticles, Name: " + particle.gameObject.name);
-            }
             else if (particle.gameObject.CompareTag("HealParticles"))
             {
                 healParticles = particle;
@@ -175,6 +175,18 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             deathOutlineMaterials.Add(clonedMat);
         }
 
+        // Parry material
+        MeshRenderer[] meshRenderers = player.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer meshRenderer in meshRenderers)
+        {
+            if (meshRenderer.gameObject.CompareTag("ParrySphere"))
+            {
+                parryMat = meshRenderer.material;
+                parryMat.SetFloat("_Transparency", 0.0f);
+                break;
+            }
+        }
+
         //Audio
         playerSFX = GetComponent<PlayerSFX>();
 
@@ -184,11 +196,17 @@ void FixedUpdate()
     {
         if(currentThickness != targetThickness)
         {
-            currentThickness = Mathf.MoveTowards(currentThickness, targetThickness, interpolationSpeed * Time.fixedDeltaTime);
+            currentThickness = Mathf.MoveTowards(currentThickness, targetThickness, goInterpolationSpeed * Time.fixedDeltaTime);
             foreach (Material mat in groovyOutlineMaterials)
             {
                 mat.SetFloat("_BaseThickness", currentThickness);
             }
+        }
+
+        if (currentTransparency != targetTransparency)
+        {
+            currentTransparency = Mathf.MoveTowards(currentTransparency, targetTransparency, pInterpolationSpeed * Time.fixedDeltaTime);
+            parryMat.SetFloat("_Transparency", currentTransparency);
         }
     }
 
@@ -223,7 +241,7 @@ void FixedUpdate()
     private IEnumerator AnimateGroovyOutline(Color inOutlineColor)
     {
         outlineColor = inOutlineColor;
-        interpolationSpeed = desiredThickness / _glowUpDuration;
+        goInterpolationSpeed = desiredThickness / _glowUpDuration;
         currentThickness = 0.0f;
         targetThickness = desiredThickness;
 
@@ -235,7 +253,7 @@ void FixedUpdate()
 
         yield return new WaitForSeconds(_glowUpDuration);
 
-        interpolationSpeed = desiredThickness / _glowDownDuration;
+        goInterpolationSpeed = desiredThickness / _glowDownDuration;
         currentThickness = desiredThickness;
         targetThickness = 0.0f;
 
@@ -246,7 +264,7 @@ void FixedUpdate()
 
         yield return new WaitForSeconds(_glowDownDuration);
 
-        interpolationSpeed = 0f;
+        goInterpolationSpeed = 0f;
         currentThickness = targetThickness;
 
         foreach (Material mat in groovyOutlineMaterials)
@@ -348,7 +366,9 @@ void FixedUpdate()
         playerAnimator.TriggerParry();
 
         // effect
-        parryingSparks.Play();
+        targetTransparency = 1f;
+        currentTransparency = 0f;
+        pInterpolationSpeed = 1f / 0.1f;
         isProtectedByParry = true;
         playerMovement.DisableMovement(true);
 
@@ -364,8 +384,9 @@ void FixedUpdate()
         else
             playerAnimator.CancelParry();
 
-        parryingSparks.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         isProtectedByParry = false;
+        targetTransparency = 0f;
+        pInterpolationSpeed = 1f / 0.1f;
         playerMovement.DisableMovement(false);
     }
 
@@ -510,11 +531,12 @@ void FixedUpdate()
             stunIdleParticles.Play();
         }
 
-        parryingSparks.Stop();
         chargeSparks.Stop();
         attackSparks.Stop();
         playerAnimator.CancelChargeAttack();
         playerAnimator.CancelAttack();
+        targetTransparency = 0f;
+        pInterpolationSpeed = 1f / 0.1f;
 
         playerMovement.DisableMovement(true);
         playerMovement.ToggleRotation(false);
