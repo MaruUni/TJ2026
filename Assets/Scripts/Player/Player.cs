@@ -150,7 +150,7 @@ public class Player : Subject<PlayerCombatEvent>
 
     public void PauseGame()
     {
-        if (UINavigationManager.Instance.CurrentScreen.GetName() == ScreenName.Game.ToString())
+        if (!!GameManager.Instance.GameInitializing && UINavigationManager.Instance.CurrentScreen.GetName() == ScreenName.Game.ToString())
             UINavigationManager.Instance.ShowScreen(ScreenName.Pause, false);
     }
 

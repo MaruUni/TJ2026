@@ -40,6 +40,7 @@ public abstract class AbstractLight : Subject<PlayerCombatEvent>
         flashlight = GetComponentInChildren<Light>();
         flashlight.color = GameStatsAccess.Instance.GetTeamColor(teamIndex);
         reclaimPointsPerSecond = GameStatsAccess.Instance.GetReclaimCrystalPointsPerSecond();
+        InitLightAnimation();
     }
 
     private void Update()
@@ -74,6 +75,15 @@ public abstract class AbstractLight : Subject<PlayerCombatEvent>
     {
         lightCollisionEnabled = false;
         flashlight.enabled = false;
+    }
+
+    /// <summary>
+    /// Animation on awake on scene, to show lights turning on
+    /// </summary>
+    /// <exception cref="System.NotImplementedException"></exception>
+    protected virtual void InitLightAnimation()
+    {
+        throw new System.NotImplementedException("Implement on child object");
     }
 }
 

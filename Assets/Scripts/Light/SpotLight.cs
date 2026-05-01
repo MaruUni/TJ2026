@@ -226,4 +226,26 @@ public class SpotLight : AbstractLight
         Gizmos.DrawRay(transform.position, left * viewRange);
         Gizmos.DrawRay(transform.position, right * viewRange);
     }
+
+    protected override void InitLightAnimation()
+    {
+        // flicker effect on initialization
+        StartCoroutine(FlickerEffect());
+    }
+
+    IEnumerator FlickerEffect()
+    {
+        float flickerDuration = 0.5f;
+        float flickerTimer = 0f;
+        while (flickerTimer < flickerDuration)
+        {
+            flashlight.intensity = targetIntensity * Random.Range(0.5f, 1.2f);
+
+            yield return new WaitForSecondsRealtime(0.05f);
+
+            flickerTimer += Time.unscaledDeltaTime;
+        }
+
+        flashlight.intensity = targetIntensity;
+    }
 }
