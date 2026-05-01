@@ -140,6 +140,7 @@ public class PlayerAnimator : MonoBehaviour
 
     public void TriggerParry()
     {
+        animator.ResetTrigger("ParryStop");
         animator.SetTrigger("Parry");
     }
 
