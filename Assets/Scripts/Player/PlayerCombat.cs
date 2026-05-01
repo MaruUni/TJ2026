@@ -46,6 +46,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private ParticleSystem chargeSparks;
     private ParticleSystem attackSparks;
     private ParticleSystem healParticles;
+    // Animator
+    Animator parryAnim;
 
     // Groovy outline
     [SerializeField] private Material transparentMask; 
@@ -58,12 +60,6 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
     // Death materials
     private List<Material> deathOutlineMaterials;
-
-    // Parry material
-    Material parryMat;
-    private float currentTransparency = 0f;
-    private float targetTransparency = 0f;
-    private float pInterpolationSpeed = 0f;
 
     // Boolean control
     private bool isProtectedByParry = false;
@@ -118,6 +114,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
         // Initialize player light
         playerLight = GetComponentInChildren<AbstractLight>();
+
+       
 
         // Particles initialization
         ParticleSystem[] particles = GetComponentsInChildren<ParticleSystem>();
@@ -174,18 +172,18 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             Material clonedMat = new Material(originalMat);
             deathOutlineMaterials.Add(clonedMat);
         }
-
-        // Parry material
-        MeshRenderer[] meshRenderers = player.GetComponentsInChildren<MeshRenderer>();
-        foreach (MeshRenderer meshRenderer in meshRenderers)
+        // Parry anim
+        Animator[] animators = player.GetComponentsInChildren<Animator>();
+        foreach (Animator anim in animators)
         {
-            if (meshRenderer.gameObject.CompareTag("ParrySphere"))
+            if (anim.gameObject.CompareTag("ParrySphere"))
             {
-                parryMat = meshRenderer.material;
-                parryMat.SetFloat("_Transparency", 0.0f);
+                parryAnim = anim;
                 break;
             }
         }
+        if(parryAnim == null)
+            throw new Exception("Parry anim not found!");
 
         //Audio
         playerSFX = GetComponent<PlayerSFX>();
@@ -201,12 +199,6 @@ void FixedUpdate()
             {
                 mat.SetFloat("_BaseThickness", currentThickness);
             }
-        }
-
-        if (currentTransparency != targetTransparency)
-        {
-            currentTransparency = Mathf.MoveTowards(currentTransparency, targetTransparency, pInterpolationSpeed * Time.fixedDeltaTime);
-            parryMat.SetFloat("_Transparency", currentTransparency);
         }
     }
 
@@ -366,9 +358,7 @@ void FixedUpdate()
         playerAnimator.TriggerParry();
 
         // effect
-        targetTransparency = 1f;
-        currentTransparency = 0f;
-        pInterpolationSpeed = 1f / 0.1f;
+        parryAnim.SetBool("Active", true);
         isProtectedByParry = true;
         playerMovement.DisableMovement(true);
 
@@ -380,13 +370,21 @@ void FixedUpdate()
     void StopParry(bool parrySuccesfull)
     {
         if (parrySuccesfull)
+        {
             playerAnimator.TriggerParrySuccess();
+            parryAnim.SetTrigger("React");
+            parryAnim.SetBool("Active", false);
+        }
+            
         else
+        {
             playerAnimator.CancelParry();
+            parryAnim.SetBool("Active", false);
+        }
+            
 
         isProtectedByParry = false;
-        targetTransparency = 0f;
-        pInterpolationSpeed = 1f / 0.1f;
+        
         playerMovement.DisableMovement(false);
     }
 
@@ -535,8 +533,7 @@ void FixedUpdate()
         attackSparks.Stop();
         playerAnimator.CancelChargeAttack();
         playerAnimator.CancelAttack();
-        targetTransparency = 0f;
-        pInterpolationSpeed = 1f / 0.1f;
+        parryAnim.SetBool("Active", false);
 
         playerMovement.DisableMovement(true);
         playerMovement.ToggleRotation(false);

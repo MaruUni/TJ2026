@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Parry1
-  m_Shader: {fileID: -6465566751694194690, guid: 13ab63ca6a087084aa8848e605290fc4, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 9d860be54ff76a54992e3ee1a08a231e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -110,11 +110,12 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Fresnel: 0.5
+    - _Fresnel: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _MainNoiseScale: 15
+    - _MaxTransparency: 0.4
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
