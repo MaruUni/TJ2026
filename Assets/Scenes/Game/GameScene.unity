@@ -906,10 +906,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5998903690938152275, guid: 09edf792546bf7a4f81c999e921c748e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3196,6 +3192,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5508731113333593329, guid: 591a34dab362a7640bd404fe14034658, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8393564880521486373, guid: 591a34dab362a7640bd404fe14034658, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.47
@@ -3250,10 +3250,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 20836922274817581, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 20836922274817581, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: outsideBounds
       value: 
       objectReference: {fileID: 232460650}
@@ -3262,36 +3258,24 @@ PrefabInstance:
       value: DoorManager
       objectReference: {fileID: 0}
     - target: {fileID: 986524538161303390, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 986524538161303390, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: m_Intensity
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 986524538161303390, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: m_BounceIntensity
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 986524538161303390, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 2630163692404249411, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: doorsContainer
       value: 
       objectReference: {fileID: 1365167822}
-    - target: {fileID: 3834890350250094418, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
-      propertyPath: m_RenderingLayersMask.m_Bits
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 4346917480787862710, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 35.1
       objectReference: {fileID: 0}
     - target: {fileID: 4346917480787862710, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 4346917480787862710, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3299,23 +3283,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4346917480787862710, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.99921787
       objectReference: {fileID: 0}
     - target: {fileID: 4346917480787862710, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.03954345
       objectReference: {fileID: 0}
     - target: {fileID: 4346917480787862710, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4346917480787862710, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4346917480787862710, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 4.533
       objectReference: {fileID: 0}
     - target: {fileID: 4346917480787862710, guid: 784fda8b915284046bf0ee5d0423f0ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -3486,18 +3470,6 @@ PrefabInstance:
     - target: {fileID: 795814032130967195, guid: 37dc02b6903158f4b8deb993d03f2363, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3857522725873395252, guid: 37dc02b6903158f4b8deb993d03f2363, type: 3}
-      propertyPath: m_Range
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3857522725873395252, guid: 37dc02b6903158f4b8deb993d03f2363, type: 3}
-      propertyPath: m_Color.b
-      value: 0.3892393
-      objectReference: {fileID: 0}
-    - target: {fileID: 4362822404525902813, guid: 37dc02b6903158f4b8deb993d03f2363, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7696148967200917827, guid: 37dc02b6903158f4b8deb993d03f2363, type: 3}
       propertyPath: m_Name
