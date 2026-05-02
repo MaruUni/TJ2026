@@ -765,6 +765,7 @@ GameObject:
   - component: {fileID: 3039229665387022326}
   - component: {fileID: 1165547620587374278}
   - component: {fileID: 1137425656151578230}
+  - component: {fileID: 5538536516367237068}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -780,13 +781,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6155906085939892126}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16675033, y: -0.687164, z: 0.16675033, w: 0.687164}
-  m_LocalPosition: {x: 69.3, y: 27.7, z: 6.2}
+  m_LocalRotation: {x: 0.19812031, y: -0.8841295, z: 0.1503675, w: 0.39554122}
+  m_LocalPosition: {x: 57.3, y: 22.100002, z: 53.199997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 929792013949132970}
-  m_LocalEulerAnglesHint: {x: 27.28, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 25, y: -135.091, z: -14.791}
 --- !u!108 &1165547620587374278
 Light:
   m_ObjectHideFlags: 0
@@ -881,6 +882,20 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!114 &5538536516367237068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6155906085939892126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274aa6312c6f8d8409c96c1bc13cd09b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MoonLight
+  startAngle: 25
+  endAngle: 150
 --- !u!1 &7366845055853517443
 GameObject:
   m_ObjectHideFlags: 0
