@@ -14,7 +14,7 @@ public class FlareAbility : AbstractAbility
     {
         flareInstance = Instantiate(flarePrefab, flareSpawn.position, flareSpawn.rotation);
         flareInstance.GetComponent<FlareProjectile>().Initialize(_teamIndex, _playerStats);
-        flareInstance.GetComponent<AbstractLight>().SetTeam(_teamIndex);
+        flareInstance.GetComponentInChildren<AbstractLight>().SetTeam(_teamIndex);
     }
 
     public override void Stop()

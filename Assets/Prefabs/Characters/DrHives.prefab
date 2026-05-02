@@ -9058,6 +9058,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _playerStats: {fileID: 11400000, guid: 40a75fd1d09e60c45bb05ce900f4106b, type: 2}
   _animationSet: {fileID: 11400000, guid: 92b0e0272cdbad749ac084b69469d5db, type: 2}
+  isAbilityInUse: 0
 --- !u!114 &3532665532328849186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9822,6 +9823,10 @@ PrefabInstance:
     - target: {fileID: 3183352793477667471, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050468987990942590, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
+      propertyPath: m_Range
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 9022723801411869484, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
       propertyPath: m_Name

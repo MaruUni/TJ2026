@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   character: 1
   Speed: 9
-  AbilityCooldownDuration: 8
+  AbilityCooldownDuration: 7
   LifeDrainNumPulses: 3
   LifeDrainPulseCadence: 2
   LifeDrainPulseDamage: 1
