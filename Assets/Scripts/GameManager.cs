@@ -31,6 +31,8 @@ public class GameManager : Subject<GameEvent>
         {
             Destroy(gameObject);
         }
+        
+        PauseGame();
     }
 
     #endregion

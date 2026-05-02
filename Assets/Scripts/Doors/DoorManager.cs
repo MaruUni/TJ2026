@@ -35,13 +35,13 @@ public class DoorManager : MonoBehaviour
     int _maxRandomTime;
 
     // lightning effect
-    DoorLightningEffect lightningEffect;
+    LightningEffect lightningEffect;
     #endregion
 
     #region MonoBehaviour
     private void Start()
     {
-        lightningEffect = GetComponent<DoorLightningEffect>();
+        lightningEffect = GetComponent<LightningEffect>();
 
         _closedDoorsOnAwake = GameStatsAccess.Instance.GetClosedDoorsOnAwake();
         _baseDoorRandom = GameStatsAccess.Instance.GetBaseDoorRandom();
@@ -105,7 +105,7 @@ public class DoorManager : MonoBehaviour
                 UpdateState(true);
             }
 
-            lightningEffect.GenerateLighningEffect(chosenDoor.transform);
+            lightningEffect.GenerateDoorLighningEffect(chosenDoor.transform);
 
             
         }

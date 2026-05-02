@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// This class is responsible for managing the in game UI (score, timer...), it listen's to GameManager events.
 /// </summary>
-public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObserver<GameEvent>, IObserver<PlayerCombatEvent>
+public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovementEvent>, IObserver<GameEvent>, IObserver<PlayerCombatEvent>
 {
     #region Variables
     [Header("UI References")]
@@ -30,6 +30,8 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
 
     private void Start()
     {
+        base.AddObserversOnScene();
+
         teamScoreTexts[0].text = "0";
         teamScoreTexts[1].text = "0";
 
@@ -42,9 +44,8 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
         playerLives[0].fillAmount = 1;
         playerLives[1].fillAmount = 1;
 
-        StartCoroutine(StartCountdown());
+        StartCoroutine(StartAnimations());
     }
-
 
     void Update()
     {
@@ -77,11 +78,17 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
         timerText.text = System.TimeSpan.FromSeconds(currentTime).ToString(@"mm\:ss");
     }
 
-    IEnumerator StartCountdown()
+    IEnumerator StartAnimations()
     {
-        GameManager.Instance.PauseGame();
-
         yield return new WaitForSecondsRealtime(1);
+
+        Notify(GameUIAnimEvents.LightningOnStart);
+
+        yield return new WaitForSecondsRealtime(2);
+
+        Notify(GameUIAnimEvents.PlayersLightOn);
+
+        yield return new WaitForSecondsRealtime(2);
 
         timeUpText.enabled = true;
                 for (int i = 3; i > 0; i--)
@@ -100,6 +107,8 @@ public class GameUIManager : MonoBehaviour, IObserver<PlayerMovementEvent>, IObs
         yield return new WaitForSecondsRealtime(1);
 
         timeUpText.enabled = false;
+
+        Notify(GameUIAnimEvents.GameStart);
 
         GameManager.Instance.InitializationComplete();
     }

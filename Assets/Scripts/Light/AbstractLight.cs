@@ -7,7 +7,7 @@ using UnityEngine;
 /// That way, the light can give the crystal information about which team is lighting it up, so that it can update the score and choose the color accordingly. 
 /// </remarks>
 /// </summary>
-public abstract class AbstractLight : Subject<PlayerCombatEvent>
+public abstract class AbstractLight : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
 {
     protected Light flashlight;
     private bool lightCollisionEnabled = true;
@@ -21,7 +21,12 @@ public abstract class AbstractLight : Subject<PlayerCombatEvent>
     /// </summary>
     protected float reclaimPointsPerSecond = 2f;
 
-    private void Awake()
+    /// <summary>
+    /// Store the initil intensity of the light (as given in inspector)
+    /// </summary>
+    protected float baseIntensity = 1.0f;
+
+    void Awake()
     {
         Player player = GetComponentInParent<Player>();
         if(player != null)
@@ -35,12 +40,14 @@ public abstract class AbstractLight : Subject<PlayerCombatEvent>
                 teamIndex = 1;
             }
         }
-        
 
         flashlight = GetComponentInChildren<Light>();
+
+        baseIntensity = flashlight.intensity;
+        flashlight.intensity = 0.0f; // turn off for the start animation
+
         flashlight.color = GameStatsAccess.Instance.GetTeamColor(teamIndex);
         reclaimPointsPerSecond = GameStatsAccess.Instance.GetReclaimCrystalPointsPerSecond();
-        InitLightAnimation();
     }
 
     private void Update()
@@ -85,5 +92,15 @@ public abstract class AbstractLight : Subject<PlayerCombatEvent>
     {
         throw new System.NotImplementedException("Implement on child object");
     }
+
+
+    #region IObserver
+    void IObserver<GameUIAnimEvents>.OnNotify(GameUIAnimEvents evt, object data)
+    {
+        Debug.Log("notified");
+        if (evt == GameUIAnimEvents.PlayersLightOn)
+            InitLightAnimation();
+    }
+    #endregion
 }
 

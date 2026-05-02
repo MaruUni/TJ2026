@@ -36,13 +36,12 @@ public class SpotLight : AbstractLight
 
     private float pulseAnimationRate;
     private Color targetColor;
-    private float targetIntensity;
 
     private LayerMask lifeDrainMask;
 
     private void Start()
     {
-        base.AddObserversOnScene();
+        base.AddObserversOnScene(); // this needs to be onStart so observers are initialized
         lifeDrainParticles = GetComponentInChildren<ParticleSystem>();
       
         initialPsStartLifetime = lifeDrainParticles.main.startLifetime.constant;
@@ -50,7 +49,6 @@ public class SpotLight : AbstractLight
 
         pulseAnimationRate = 1f / pulseAnimationDuration;
         targetColor = flashlight.color;
-        targetIntensity = flashlight.intensity;
 
         if(teamIndex == 0)
         {
@@ -64,14 +62,16 @@ public class SpotLight : AbstractLight
 
     private void FixedUpdate()
     {
+        if (GameManager.Instance.GameInitializing) return;
+
         if(Vector4.Distance(flashlight.color, targetColor) > 0.01f)
         {
             flashlight.color = Color.Lerp(flashlight.color, targetColor, pulseAnimationRate * Time.fixedDeltaTime);
         }
 
-        if(Mathf.Abs(flashlight.intensity - targetIntensity) > 0.01f)
+        if(Mathf.Abs(flashlight.intensity - baseIntensity) > 0.01f)
         {
-            flashlight.intensity = Mathf.Lerp(flashlight.intensity, targetIntensity, pulseAnimationRate * Time.fixedDeltaTime);
+            flashlight.intensity = Mathf.Lerp(flashlight.intensity, baseIntensity, pulseAnimationRate * Time.fixedDeltaTime);
         }
     }
 
@@ -192,7 +192,7 @@ public class SpotLight : AbstractLight
     {
         isPulsing = true;
         targetColor = GameStatsAccess.Instance.GetDamageColor();
-        targetIntensity *= pulseIntensityMultiplier;
+        baseIntensity *= pulseIntensityMultiplier;
         var psMain = lifeDrainParticles.main;
         psMain.startLifetime = pulseParticlesStartLifetime;
         psMain.startSpeed = pulseParticlesStartSpeed;
@@ -205,7 +205,7 @@ public class SpotLight : AbstractLight
         psEmission.rateOverTime = regularParticlesEmission;
         psMain.startLifetime = initialPsStartLifetime;
         psMain.startSpeed = initialPsStartSpeed;
-        targetIntensity /= pulseIntensityMultiplier;
+        baseIntensity /= pulseIntensityMultiplier;
         targetColor = GameStatsAccess.Instance.GetTeamColor(teamIndex);
         isPulsing = false;
     }
@@ -235,17 +235,13 @@ public class SpotLight : AbstractLight
 
     IEnumerator FlickerEffect()
     {
-        float flickerDuration = 0.5f;
-        float flickerTimer = 0f;
-        while (flickerTimer < flickerDuration)
+        for (int i = 0; i < 10; i++)
         {
-            flashlight.intensity = targetIntensity * Random.Range(0.5f, 1.2f);
+            flashlight.intensity = baseIntensity * Random.Range(0.5f, 1.2f);
 
             yield return new WaitForSecondsRealtime(0.05f);
-
-            flickerTimer += Time.unscaledDeltaTime;
         }
 
-        flashlight.intensity = targetIntensity;
+        flashlight.intensity = baseIntensity;
     }
 }
