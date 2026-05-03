@@ -60,3 +60,4 @@ MonoBehaviour:
   BiasToOpenDoorRandom: 0.7
   MinDoorRandomTime: 20
   MaxDoorRandomTime: 40
+  MaxDiaryEntriesNumber: 12
