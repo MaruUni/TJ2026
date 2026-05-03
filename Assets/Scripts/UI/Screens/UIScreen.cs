@@ -6,9 +6,13 @@ public class UIScreen : MonoBehaviour
 {
     [SerializeField] protected ScreenName screenName;
     [SerializeField] protected GameObject firstToNavigate;
-    [SerializeField] TextMeshProUGUI exitText;
-    string[] exitPlayerButton = new string[2];
+    UIBackButton backBtn;
 
+    virtual protected void Awake()
+    {
+        backBtn = GetComponentInChildren<UIBackButton>(true);
+
+    }
     public string GetName()
     {
         return screenName.ToString();
@@ -38,13 +42,14 @@ public class UIScreen : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void ChangeEscText(int playerIndex, string playerButton)
+    public bool HasBackButton()
     {
-        exitPlayerButton[playerIndex] = playerButton;
-        if (exitPlayerButton[0] == exitPlayerButton[1])
-            exitText.text = exitPlayerButton[0];
-        else
-            exitText.text = exitPlayerButton[0] + "/" + exitPlayerButton[1];
+        return backBtn != null;
+    }
 
+    public void ChangeBackButtonText(string text)
+    {
+        if (backBtn != null)
+            backBtn.ChangeText(text);
     }
 }

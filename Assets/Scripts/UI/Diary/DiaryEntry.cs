@@ -6,9 +6,8 @@ public class DiaryEntry : MonoBehaviour
 {
     [SerializeField] TextField entryTitle;
     [SerializeField] TextField entryText;
+    DiaryManager diaryManager;
 
-    TextMeshPro titleSlot;
-    TextMeshPro textSlot;
     int diaryEntryIdx;
     ParticleSystem newReadVFX;
     bool goneTrough = false;
@@ -17,16 +16,13 @@ public class DiaryEntry : MonoBehaviour
     {
         newReadVFX = GetComponent<ParticleSystem>();
 
-        titleSlot = GameObject.FindGameObjectWithTag("EntryTitle").GetComponent<TextMeshPro>();
-        textSlot = GameObject.FindGameObjectWithTag("EntryText").GetComponent<TextMeshPro>();
-
-
         // start disabled
         gameObject.SetActive(false);
     }
 
-    public void Initialize(bool goneTrough, int idx)
+    public void Initialize(DiaryManager diaryManager, bool goneTrough, int idx)
     {
+        this.diaryManager = diaryManager;
         gameObject.SetActive(true);
         this.goneTrough = goneTrough;
         diaryEntryIdx = idx;
@@ -38,8 +34,8 @@ public class DiaryEntry : MonoBehaviour
 
     public void ReadDiary()
     {
-        titleSlot.text = entryTitle.text;
-        textSlot.text = entryText.text;
+        diaryManager.EntryTitleSlot.text = entryTitle.text;
+        diaryManager.EntryTextSlot.text = entryText.text;
         UINavigationManager.Instance.ShowScreen(ScreenName.DiaryEntry, false);
 
         if (!goneTrough)

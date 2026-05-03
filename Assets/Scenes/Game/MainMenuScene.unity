@@ -213,6 +213,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2406479683789520412, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: _firstShownScreenName
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2807250108514323452, guid: f853faf4babe7254d8ef33913451373a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -317,6 +321,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5641190024885839113, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6093915265097914627, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6683229345695860503, guid: f853faf4babe7254d8ef33913451373a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
@@ -341,6 +353,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -626
       objectReference: {fileID: 0}
+    - target: {fileID: 6870388854830848929, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6959194802506426264, guid: f853faf4babe7254d8ef33913451373a, type: 3}
       propertyPath: m_Name
       value: MainMenuScene
@@ -349,6 +365,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 306b270d6c43d214eb43f706b53256fb, type: 3}
+    - target: {fileID: 7910014620544305104, guid: f853faf4babe7254d8ef33913451373a, type: 3}
+      propertyPath: nextScreenName
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
