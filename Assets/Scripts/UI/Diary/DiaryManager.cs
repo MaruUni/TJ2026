@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -7,24 +8,13 @@ public class DiaryManager : MonoBehaviour
     List<DiaryEntry> allDiaries;
 
     // references to the entry text visualizer
-    TextMeshPro entryTitleSlot;
-    public TextMeshPro EntryTitleSlot => entryTitleSlot;
+    public TextMeshProUGUI EntryTitleSlot;
 
-    TextMeshPro entryTextSlot;
-    public TextMeshPro EntryTextSlot => entryTextSlot;
+    public TextMeshProUGUI EntryTextSlot;
 
     private void Awake()
     {
-        GetComponentsInChildren<DiaryEntry>(true, allDiaries); // the order is always the same
-
-        TextMeshPro[] texts = GetComponentsInChildren<TextMeshPro>(true);
-        foreach (TextMeshPro text in texts)
-        {
-            if (text.gameObject.CompareTag("EntryTitle"))
-                entryTitleSlot = text;
-            else if (text.gameObject.CompareTag("EntryText"))
-                entryTextSlot = text;
-        }
+        allDiaries = GetComponentsInChildren<DiaryEntry>(true).ToList(); // the order is always the same
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

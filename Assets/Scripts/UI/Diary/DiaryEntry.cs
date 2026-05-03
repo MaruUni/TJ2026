@@ -1,11 +1,9 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class DiaryEntry : MonoBehaviour
 {
-    [SerializeField] TextField entryTitle;
-    [SerializeField] TextField entryText;
+    [SerializeField][TextArea] string entryTitle;
+    [SerializeField][TextArea] string entryText;
     DiaryManager diaryManager;
 
     int diaryEntryIdx;
@@ -14,7 +12,7 @@ public class DiaryEntry : MonoBehaviour
 
     void Awake()
     {
-        newReadVFX = GetComponent<ParticleSystem>();
+        newReadVFX = GetComponentInChildren<ParticleSystem>();
 
         // start disabled
         gameObject.SetActive(false);
@@ -27,15 +25,15 @@ public class DiaryEntry : MonoBehaviour
         this.goneTrough = goneTrough;
         diaryEntryIdx = idx;
 
-        if (goneTrough)
+        if (!goneTrough)
             newReadVFX.Play();
     }
 
 
     public void ReadDiary()
     {
-        diaryManager.EntryTitleSlot.text = entryTitle.text;
-        diaryManager.EntryTextSlot.text = entryText.text;
+        diaryManager.EntryTitleSlot.text = entryTitle;
+        diaryManager.EntryTextSlot.text = entryText;
         UINavigationManager.Instance.ShowScreen(ScreenName.DiaryEntry, false);
 
         if (!goneTrough)

@@ -14,9 +14,9 @@ TagManager:
   - ParrySparkParticles
   - ParrySphere
   - Triangle
-  - EntryText
-  - EntryTitle
   - DiaryEntry
+  - EntryTitle
+  - EntryText
   layers:
   - Default
   - TransparentFX

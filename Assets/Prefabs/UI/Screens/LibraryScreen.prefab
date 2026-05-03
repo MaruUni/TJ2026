@@ -54,7 +54,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIScreen
   screenName: 8
   firstToNavigate: {fileID: 1252019120006290611}
-  backBtn: {fileID: 0}
 --- !u!1 &8161378173482176056
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,11 +332,33 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92e9cd327a1369544a34c03daf68972e, type: 3}
+--- !u!114 &265756598779021596 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8113460892977123468, guid: 92e9cd327a1369544a34c03daf68972e, type: 3}
+  m_PrefabInstance: {fileID: 8298134677288147344}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!224 &802920705171822479 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8650405148583972383, guid: 92e9cd327a1369544a34c03daf68972e, type: 3}
   m_PrefabInstance: {fileID: 8298134677288147344}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1800809386599544841 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7770159744557785497, guid: 92e9cd327a1369544a34c03daf68972e, type: 3}
+  m_PrefabInstance: {fileID: 8298134677288147344}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &8623026833806434188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -470,6 +491,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DiaryEntry
       objectReference: {fileID: 0}
+    - target: {fileID: 7450304630932427533, guid: 170908fd49a02354b8573474acdc85f6, type: 3}
+      propertyPath: EntryTextSlot
+      value: 
+      objectReference: {fileID: 265756598779021596}
+    - target: {fileID: 7450304630932427533, guid: 170908fd49a02354b8573474acdc85f6, type: 3}
+      propertyPath: EntryTitleSlot
+      value: 
+      objectReference: {fileID: 1800809386599544841}
     - target: {fileID: 7734436251544607173, guid: 170908fd49a02354b8573474acdc85f6, type: 3}
       propertyPath: m_Enabled
       value: 1

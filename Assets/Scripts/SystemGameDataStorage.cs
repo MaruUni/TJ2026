@@ -47,6 +47,7 @@ public class SystemGameDataStorage : MonoBehaviour
 
     void LoadGameData()
     {
+        Debug.Log("loadgamedata");
         savePath = Application.persistentDataPath + "/savefile.dat";
 
         if (File.Exists(savePath))
@@ -56,9 +57,15 @@ public class SystemGameDataStorage : MonoBehaviour
 
             gameData = formatter.Deserialize(stream) as GameData;
             stream.Close();
+
+            // get if its not updated, and update it (we could have expanded the GameData serializer)
+            gameData = gameData ?? new GameData();
+            gameData.UnlockedDiaryEntries = gameData.UnlockedDiaryEntries ?? new List<int>();
+            gameData.GoneThroughDiaryEntries = gameData.GoneThroughDiaryEntries ?? new List<int>();
         }
         else
         {
+            Debug.Log("notfound");
             gameData = new GameData();
             gameData.UnlockedDiaryEntries = new List<int>();
             gameData.GoneThroughDiaryEntries = new List<int>();
@@ -92,6 +99,7 @@ public class SystemGameDataStorage : MonoBehaviour
     public void GoThroughDiaryEntry(int idx)
     {
         gameData.GoneThroughDiaryEntries.Add(idx);
+        SaveGameData();
     }
 
     int GetRandomLockedDiaryEntry()

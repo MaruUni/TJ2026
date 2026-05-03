@@ -17,7 +17,7 @@ public class UINavigationManager : MonoBehaviour
     private IDictionary<string, UIScreen> _screens;
     private UIScreen _currentScreen;
     public UIScreen CurrentScreen {  get { return _currentScreen; } }
-    private Queue<UIScreen> _screenStack = new();
+    private Stack<UIScreen> _screenStack = new();
 
     // Back button
     string[] backBtnBinding = new string[3]; // 0 for keyboard, 1 for gamepad, 2 for both
@@ -116,7 +116,7 @@ public class UINavigationManager : MonoBehaviour
         }
 
         if (_currentScreen != null) 
-            _screenStack.Enqueue(_currentScreen);;
+            _screenStack.Push(_currentScreen);;
 
         _currentScreen = screenToSwitch;
         _currentScreen.Show();
@@ -154,7 +154,7 @@ public class UINavigationManager : MonoBehaviour
         if (!_currentScreen.HasBackButton()) return;
 
         _currentScreen.Hide();
-        _currentScreen = _screenStack.Dequeue();
+        _currentScreen = _screenStack.Pop();
         _currentScreen.Show();
     }
 
@@ -216,7 +216,7 @@ public class UINavigationManager : MonoBehaviour
 
         backBtnBinding[0] = action.GetBindingDisplayString(0); // keyboard button
         backBtnBinding[1] = action.GetBindingDisplayString(1); // gamepad button
-        backBtnBinding[2] = backBtnBinding[0] + " ¡/" + backBtnBinding[1];
+        backBtnBinding[2] = backBtnBinding[0] + " / " + backBtnBinding[1];
 
         currentBinding = 0;
     }
