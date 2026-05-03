@@ -14,7 +14,7 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
     [SerializeField] private Image[] playerDashEnabled = new Image[2];
     [SerializeField] private Image[] playerAbilityEnabled = new Image[2];
     [SerializeField] private Image[] playerLives = new Image[2];
-    [SerializeField] private Image newDiaryEntry;
+    [SerializeField] private TextMeshProUGUI[] abilityCooldownTexts = new TextMeshProUGUI[2];
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI timeUpText;
 
@@ -44,9 +44,6 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
         _maxLives = GameStatsAccess.Instance.GetMaxLives();
         playerLives[0].fillAmount = 1;
         playerLives[1].fillAmount = 1;
-
-
-        newDiaryEntry.enabled = false;
 
         StartCoroutine(StartAnimations());
     }
@@ -217,13 +214,6 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
                     StartCoroutine(SuddenDeath());
                     break;
                 }
-            case GameEvent.GameEnd:
-                {
-                    bool unlocked = SystemGameDataStorage.Instance.UnlockDiaryEntries();
-                    if (unlocked)
-                        newDiaryEntry.enabled = true;
-                    break;
-                }
         }
     }
 
@@ -268,6 +258,15 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
                     Color teamColor = playerAbilityEnabled[teamIndex].color;
                     teamColor.a = 0.05f;
                     playerAbilityEnabled[teamIndex].color = teamColor;
+                    break;
+                }
+            case PlayerCombatEvent.AbilityCooldownUpdate:
+                {
+                    int[] processedData = data as int[];
+                    int teamIndex = processedData[0];
+                    int remainingCooldown = processedData[1];
+                    abilityCooldownTexts[teamIndex].text = remainingCooldown > 0 ? remainingCooldown.ToString() : "";
+
                     break;
                 }
         }

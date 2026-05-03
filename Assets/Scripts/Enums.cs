@@ -50,6 +50,7 @@ public enum PlayerCombatEvent
     StartAbilityCooldown, // data = (int)teamIndex
     AbilityEnabled, // data = (int)teamIndex
     AbilityDisabled, // data = (int)teamIndex
+    AbilityCooldownUpdate, //data = (int)teamIndex, (int)remainingCooldown
 }
 
 public enum InputManagerEvent

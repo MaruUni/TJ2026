@@ -28,7 +28,7 @@ TagManager:
   - Heal
   - Player2
   - Outlined
-  - 
+  - Roof
   - 
   - 
   - 
@@ -65,3 +65,4 @@ TagManager:
   - Player1
   - Player2
   - Outside
+  - Flare
