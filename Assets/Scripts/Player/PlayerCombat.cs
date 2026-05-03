@@ -60,6 +60,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
     // Death materials
     private List<Material> deathOutlineMaterials;
+    [SerializeField] private GameObject[] ghostParticles;
+    [SerializeField] private GameObject bloodSplatter;
 
     // Boolean control
     private bool isProtectedByParry = false;
@@ -449,9 +451,15 @@ void FixedUpdate()
         isDead = true;
         // disable actions and world interaction
         player.DisableWorldInteraction();
-        playerAbility.Stop();
+        if (player.isAbilityInUse)
+            playerAbility.Stop();
         // light switching
         StopCoroutine(nameof(TurnLightOff)); // in case another coroutine is up
+
+        //Instantiate effects
+        Instantiate(bloodSplatter, transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity);
+        ParticleSystem ghostParticlesInstance = Instantiate(ghostParticles[_teamIndex], transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity).GetComponent<ParticleSystem>();
+        Destroy(ghostParticlesInstance.gameObject, ghostParticlesInstance.main.duration);
 
         // Store current state
         List<Material[]> currentMaterialsCopy = new List<Material[]>();
