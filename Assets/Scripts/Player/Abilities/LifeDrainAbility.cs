@@ -18,6 +18,7 @@ public class LifeDrainAbility : AbstractAbility
     #region Virtual Methods
     override public void Activate()
     {
+        spotLight.TurnOn();
         spotLight.ActivateLifeDrain(_playerStats);
     }
 
