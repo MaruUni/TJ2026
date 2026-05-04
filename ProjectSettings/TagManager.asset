@@ -17,6 +17,8 @@ TagManager:
   - DiaryEntry
   - EntryTitle
   - EntryText
+  - ReviveParticlesP
+  - ReviveParticlesY
   layers:
   - Default
   - TransparentFX

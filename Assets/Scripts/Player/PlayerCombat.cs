@@ -46,6 +46,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private ParticleSystem chargeSparks;
     private ParticleSystem attackSparks;
     private ParticleSystem healParticles;
+    private ParticleSystem[] reviveParticles = new ParticleSystem[2];
     // Animator
     Animator parryAnim;
 
@@ -127,27 +128,31 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             if (particle.gameObject.CompareTag("StunBurstParticles"))
             {
                 stunBurstParticles = particle;
-                Debug.Log(player.GetTeamIndex() + " Tag: StunBurstParticles, Name: " + particle.gameObject.name);
             }
             else if (particle.gameObject.CompareTag("StunIdleParticles"))
             {
                 stunIdleParticles = particle;
-                Debug.Log(player.GetTeamIndex() + " Tag: StunIdleParticles, Name: " + particle.gameObject.name);
             }
             else if (particle.gameObject.CompareTag("ChargeAttackParticles"))
             {
                 chargeSparks = particle;
-                Debug.Log(player.GetTeamIndex() + " Tag: ChargeAttackParticles, Name: " + particle.gameObject.name);
+ 
             }
             else if (particle.gameObject.CompareTag("AttackParticles"))
             {
                 attackSparks = particle;
-                Debug.Log(player.GetTeamIndex() + " Tag: AttackParticles, Name: " + particle.gameObject.name);
             }
             else if (particle.gameObject.CompareTag("HealParticles"))
             {
                 healParticles = particle;
-                Debug.Log(player.GetTeamIndex() + " Tag: HealParticles, Name: " + particle.gameObject.name);
+            }
+            else if (particle.gameObject.CompareTag("ReviveParticlesP"))
+            {
+                reviveParticles[0] = particle;
+            }
+            else if (particle.gameObject.CompareTag("ReviveParticlesY"))
+            {
+                reviveParticles[1] = particle;
             }
         }
 
@@ -493,6 +498,8 @@ void FixedUpdate()
         playerSFX.PlayTurnOff();
         playerLight.TurnOff(); // don't call method to not start twice the same coroutine
 
+        StartCoroutine(DeathVFX());
+
         float remainingDeathDuration = _deathDuration;
 
         while(remainingDeathDuration > 0)
@@ -520,6 +527,12 @@ void FixedUpdate()
         }
 
         Notify(PlayerCombatEvent.BackToLife, _teamIndex);
+    }
+
+    IEnumerator DeathVFX()
+    {
+        yield return new WaitForSeconds(_deathDuration - reviveParticles[player.GetTeamIndex()].main.duration);
+        reviveParticles[player.GetTeamIndex()].Play();
     }
 
     IEnumerator TurnLightOff(float duration)
