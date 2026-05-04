@@ -217,16 +217,40 @@ void FixedUpdate()
             Destroy(mat);
         }
     }
-
     void OnTriggerStay(Collider other)
     {
         if (!isAttackingHeavy) return;
 
         PlayerCombat enemy = other.gameObject.GetComponentInParent<PlayerCombat>();
+
         if (enemy != null && enemy != this && !alreadyHitHeavy && enemy.enabled)
         {
-            isAttackingHeavy = false; // to avoid multiple collisions on the same attack
-            // effect
+            // --- WALL CHECK (LINE OF SIGHT) ---
+            Vector3 rayOrigin = transform.position + Vector3.up;
+            Vector3 rayTarget = enemy.transform.position + Vector3.up;
+            Vector3 direction = rayTarget - rayOrigin;
+            float distance = direction.magnitude;
+
+            int myTeamLayer = LayerMask.NameToLayer("Player" + (player.GetTeamIndex() + 1));
+            int maskToHitEverythingExceptMe = ~(1 << myTeamLayer);
+
+            // --- THE FIX IS HERE ---
+            // Added QueryTriggerInteraction.Ignore to the end of the arguments
+            if (Physics.Raycast(rayOrigin, direction.normalized, out RaycastHit hit, distance, maskToHitEverythingExceptMe, QueryTriggerInteraction.Ignore))
+            {
+                PlayerCombat hitCombatComponent = hit.collider.GetComponentInParent<PlayerCombat>();
+
+                if (hitCombatComponent != enemy)
+                {
+                    // We hit a solid object (like a wall) that is NOT the enemy.
+                    // Triggers are completely ignored now!
+                    return;
+                }
+            }
+            // ----------------------------------
+
+            isAttackingHeavy = false;
+
             bool succesful = enemy.ReceiveHeavyMelee();
             if (!succesful) ParryResponse();
 
@@ -333,9 +357,29 @@ void FixedUpdate()
             PlayerCombat enemy = collider.gameObject.GetComponentInParent<PlayerCombat>();
             if (enemy != null && enemy != this && enemy.enabled && !alreadyHitLight)
             {
-                // effect
-                enemy.ReceiveLightMelee();
-                alreadyHitLight = true;
+                // --- WALL CHECK (LINE OF SIGHT) ---
+                Vector3 rayOrigin = transform.position + Vector3.up;
+                Vector3 rayTarget = enemy.transform.position + Vector3.up;
+                Vector3 direction = rayTarget - rayOrigin;
+                float distance = direction.magnitude;
+
+                int myTeamLayer = LayerMask.NameToLayer("Player" + (player.GetTeamIndex() + 1));
+                int maskToHitEverythingExceptMe = ~(1 << myTeamLayer);
+
+                // --- THE FIX IS HERE ---
+                // Added QueryTriggerInteraction.Ignore to the end of the arguments
+                if (Physics.Raycast(rayOrigin, direction.normalized, out RaycastHit hit, distance, maskToHitEverythingExceptMe, QueryTriggerInteraction.Ignore))
+                {
+                    PlayerCombat hitCombatComponent = hit.collider.GetComponentInParent<PlayerCombat>();
+
+                    if (hitCombatComponent == enemy)
+                    {
+                        enemy.ReceiveLightMelee();
+                        alreadyHitLight = true;
+                    }
+                }
+                // ----------------------------------
+                
             }
         }
     }

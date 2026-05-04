@@ -6,8 +6,8 @@ using UnityEngine.Rendering;
 
 public class Door : MonoBehaviour
 {
-    const float animationStaticPartDuration = 1.0f;
-    const float animationDynamicPartDuration = 1.0f;
+    const float animationStaticPartDuration = 2.75f;
+    const float animationDynamicPartDuration = 0.75f;
 
     int roomA; // first room the door belongs to
     public int RoomA { get { return roomA; } }
