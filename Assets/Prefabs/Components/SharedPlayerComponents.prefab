@@ -412,6 +412,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ReviveParticlesYellow
       objectReference: {fileID: 0}
+    - target: {fileID: 4040989152247448691, guid: 45e0f583882a9b444af6ba9331d91943, type: 3}
+      propertyPath: m_TagString
+      value: ReviveParticlesY
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -539,6 +543,10 @@ PrefabInstance:
     - target: {fileID: 7915475427713476816, guid: 96d1893bf46081446aabd8f8144d0684, type: 3}
       propertyPath: m_Name
       value: ReviveParticlesPurple
+      objectReference: {fileID: 0}
+    - target: {fileID: 7915475427713476816, guid: 96d1893bf46081446aabd8f8144d0684, type: 3}
+      propertyPath: m_TagString
+      value: ReviveParticlesP
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

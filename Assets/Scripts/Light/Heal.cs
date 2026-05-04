@@ -228,7 +228,7 @@ public class Heal : Subject<PlayerCombatEvent>
 
     private IEnumerator Pulse(int teamIndex)
     {
-        while(true)
+        while (true)
         {
             yield return new WaitForSeconds(healCadence);
             animator.SetTrigger("pulse");

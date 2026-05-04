@@ -46,6 +46,7 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private ParticleSystem chargeSparks;
     private ParticleSystem attackSparks;
     private ParticleSystem healParticles;
+    private ParticleSystem[] reviveParticles = new ParticleSystem[2];
     // Animator
     Animator parryAnim;
 
@@ -67,7 +68,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private bool isProtectedByParry = false;
     private bool isAttackingHeavy = false;
     private bool isChargingAttack = false;
-    private bool alreadyHit = false; // to prevent hitting multiple times with the heavy melee dash
+    private bool alreadyHitHeavy = false; // to prevent hitting multiple times with the heavy melee dash
+    private bool alreadyHitLight = false; // to prevent hitting multiple times with the light melee
     private bool isDead = false;
 
     //Audio
@@ -126,27 +128,31 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
             if (particle.gameObject.CompareTag("StunBurstParticles"))
             {
                 stunBurstParticles = particle;
-                Debug.Log(player.GetTeamIndex() + " Tag: StunBurstParticles, Name: " + particle.gameObject.name);
             }
             else if (particle.gameObject.CompareTag("StunIdleParticles"))
             {
                 stunIdleParticles = particle;
-                Debug.Log(player.GetTeamIndex() + " Tag: StunIdleParticles, Name: " + particle.gameObject.name);
             }
             else if (particle.gameObject.CompareTag("ChargeAttackParticles"))
             {
                 chargeSparks = particle;
-                Debug.Log(player.GetTeamIndex() + " Tag: ChargeAttackParticles, Name: " + particle.gameObject.name);
+ 
             }
             else if (particle.gameObject.CompareTag("AttackParticles"))
             {
                 attackSparks = particle;
-                Debug.Log(player.GetTeamIndex() + " Tag: AttackParticles, Name: " + particle.gameObject.name);
             }
             else if (particle.gameObject.CompareTag("HealParticles"))
             {
                 healParticles = particle;
-                Debug.Log(player.GetTeamIndex() + " Tag: HealParticles, Name: " + particle.gameObject.name);
+            }
+            else if (particle.gameObject.CompareTag("ReviveParticlesP"))
+            {
+                reviveParticles[0] = particle;
+            }
+            else if (particle.gameObject.CompareTag("ReviveParticlesY"))
+            {
+                reviveParticles[1] = particle;
             }
         }
 
@@ -217,14 +223,14 @@ void FixedUpdate()
         if (!isAttackingHeavy) return;
 
         PlayerCombat enemy = other.gameObject.GetComponentInParent<PlayerCombat>();
-        if (enemy != null && enemy != this && !alreadyHit && enemy.enabled)
+        if (enemy != null && enemy != this && !alreadyHitHeavy && enemy.enabled)
         {
             isAttackingHeavy = false; // to avoid multiple collisions on the same attack
             // effect
             bool succesful = enemy.ReceiveHeavyMelee();
             if (!succesful) ParryResponse();
 
-            alreadyHit = true;
+            alreadyHitHeavy = true;
         }
     }
 
@@ -299,7 +305,7 @@ void FixedUpdate()
         //dash
         isProtectedByParry = true;
         isAttackingHeavy = true;
-        alreadyHit = false;
+        alreadyHitHeavy = false;
         playerMovement.Dash(_heavyMeleeDashDuration, _heavyMeleeDashSpeedIncrement);
 
         // after dash player is no longer attacking
@@ -316,6 +322,7 @@ void FixedUpdate()
 
         yield return new WaitForSeconds(0.2f); //TODO: to sync with animation, can be changed later when we have the final one
         attackSparks.Play();
+        alreadyHitLight = false;
 
         // check collision
         float range = _lightMeleeRange;
@@ -324,10 +331,11 @@ void FixedUpdate()
         foreach (Collider collider in collisions)
         {
             PlayerCombat enemy = collider.gameObject.GetComponentInParent<PlayerCombat>();
-            if (enemy != null && enemy != this && enemy.enabled)
+            if (enemy != null && enemy != this && enemy.enabled && !alreadyHitLight)
             {
                 // effect
                 enemy.ReceiveLightMelee();
+                alreadyHitLight = true;
             }
         }
     }
@@ -490,8 +498,18 @@ void FixedUpdate()
         playerSFX.PlayTurnOff();
         playerLight.TurnOff(); // don't call method to not start twice the same coroutine
 
-        Debug.Log(_deathDuration);
-        yield return new WaitForSeconds(_deathDuration);
+        StartCoroutine(DeathVFX());
+
+        float remainingDeathDuration = _deathDuration;
+
+        while(remainingDeathDuration > 0)
+        {
+            Notify(PlayerCombatEvent.DeathCooldownUpdate, new int[] { _teamIndex, (int)remainingDeathDuration });
+            yield return new WaitForSeconds(1.0f);
+            remainingDeathDuration -= 1.0f;
+        }
+
+        Notify(PlayerCombatEvent.DeathCooldownUpdate, new int[] { _teamIndex, (int)remainingDeathDuration });
 
         // light switching
         //Audio
@@ -509,6 +527,12 @@ void FixedUpdate()
         }
 
         Notify(PlayerCombatEvent.BackToLife, _teamIndex);
+    }
+
+    IEnumerator DeathVFX()
+    {
+        yield return new WaitForSeconds(_deathDuration - reviveParticles[player.GetTeamIndex()].main.duration);
+        reviveParticles[player.GetTeamIndex()].Play();
     }
 
     IEnumerator TurnLightOff(float duration)
@@ -599,7 +623,8 @@ void FixedUpdate()
                 {
                     // Damage
                     currentLives -= damageAmount;
-                    StartCoroutine(AnimateGroovyOutline(GameStatsAccess.Instance.GetDamageColor()));
+                    Debug.Log("Player " + _teamIndex + " received damage, current lives: " + currentLives);
+                        StartCoroutine(AnimateGroovyOutline(GameStatsAccess.Instance.GetDamageColor()));
 
                     if (currentLives <= 0)
                     {
