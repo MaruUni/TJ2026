@@ -9828,10 +9828,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4050468987990942590, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
-      propertyPath: m_Range
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 9022723801411869484, guid: 7bf3315c561717b42b207f4a423074c7, type: 3}
       propertyPath: m_Name
       value: SpotLight

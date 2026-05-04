@@ -29,7 +29,7 @@ MonoBehaviour:
   CrystalTimeToInactiveReset: 1
   CrystalInactiveResetPointsPerSecond: 30
   CrystalCooldownDuration: 15
-  HealCadence: 2
+  HealCadence: 1
   HealAmount: 3
   MaxLives: 9
   DeathDuration: 10

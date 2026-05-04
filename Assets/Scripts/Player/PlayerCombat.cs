@@ -67,7 +67,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     private bool isProtectedByParry = false;
     private bool isAttackingHeavy = false;
     private bool isChargingAttack = false;
-    private bool alreadyHit = false; // to prevent hitting multiple times with the heavy melee dash
+    private bool alreadyHitHeavy = false; // to prevent hitting multiple times with the heavy melee dash
+    private bool alreadyHitLight = false; // to prevent hitting multiple times with the light melee
     private bool isDead = false;
 
     //Audio
@@ -217,14 +218,14 @@ void FixedUpdate()
         if (!isAttackingHeavy) return;
 
         PlayerCombat enemy = other.gameObject.GetComponentInParent<PlayerCombat>();
-        if (enemy != null && enemy != this && !alreadyHit && enemy.enabled)
+        if (enemy != null && enemy != this && !alreadyHitHeavy && enemy.enabled)
         {
             isAttackingHeavy = false; // to avoid multiple collisions on the same attack
             // effect
             bool succesful = enemy.ReceiveHeavyMelee();
             if (!succesful) ParryResponse();
 
-            alreadyHit = true;
+            alreadyHitHeavy = true;
         }
     }
 
@@ -299,7 +300,7 @@ void FixedUpdate()
         //dash
         isProtectedByParry = true;
         isAttackingHeavy = true;
-        alreadyHit = false;
+        alreadyHitHeavy = false;
         playerMovement.Dash(_heavyMeleeDashDuration, _heavyMeleeDashSpeedIncrement);
 
         // after dash player is no longer attacking
@@ -316,6 +317,7 @@ void FixedUpdate()
 
         yield return new WaitForSeconds(0.2f); //TODO: to sync with animation, can be changed later when we have the final one
         attackSparks.Play();
+        alreadyHitLight = false;
 
         // check collision
         float range = _lightMeleeRange;
@@ -324,10 +326,11 @@ void FixedUpdate()
         foreach (Collider collider in collisions)
         {
             PlayerCombat enemy = collider.gameObject.GetComponentInParent<PlayerCombat>();
-            if (enemy != null && enemy != this && enemy.enabled)
+            if (enemy != null && enemy != this && enemy.enabled && !alreadyHitLight)
             {
                 // effect
                 enemy.ReceiveLightMelee();
+                alreadyHitLight = true;
             }
         }
     }
@@ -599,7 +602,8 @@ void FixedUpdate()
                 {
                     // Damage
                     currentLives -= damageAmount;
-                    StartCoroutine(AnimateGroovyOutline(GameStatsAccess.Instance.GetDamageColor()));
+                    Debug.Log("Player " + _teamIndex + " received damage, current lives: " + currentLives);
+                        StartCoroutine(AnimateGroovyOutline(GameStatsAccess.Instance.GetDamageColor()));
 
                     if (currentLives <= 0)
                     {
