@@ -955,7 +955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be6dd76ed68b7e0439b959f299ce0ab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIScreenVictory
-  screenName: 9
+  screenName: 5
   firstToNavigate: {fileID: 6833497902432643275}
   winningTeamText: {fileID: 8551272026614873299}
   unlockedDiaryEntry: {fileID: 3073239244111603090}
