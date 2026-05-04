@@ -184,6 +184,12 @@ public class Player : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
     {
         CancelChargeAttack();
 
+        Collider[] collider = gameObject.GetComponentsInChildren<Collider>();
+        foreach (Collider col in collider)
+        {
+            col.excludeLayers = LayerMask.GetMask("Player1", "Player2");
+        }
+
         actionsEnabled = false;
         playerCombat.enabled = false; // other players cant interact if this one doesnt have combat enabled, and this one cannot perform actions
     }
@@ -195,6 +201,12 @@ public class Player : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
     {
         actionsEnabled = true;
         playerCombat.enabled = true;
+
+        Collider[] collider = gameObject.GetComponentsInChildren<Collider>();
+        foreach (Collider col in collider)
+        {
+            col.excludeLayers = 0;
+        }
     }
 
     /// <summary>
