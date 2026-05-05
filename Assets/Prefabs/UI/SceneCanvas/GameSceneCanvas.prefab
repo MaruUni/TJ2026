@@ -118,8 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fba9180cf7b97943a99e909cf5d5fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UINavigationManager
-  inputAction: {fileID: 0}
-  _firstShownScreenName: 3
+  inputAction: {fileID: -944628639613478452, guid: f3bc0e348952a644eb493991821d706d, type: 3}
+  _firstShownScreenName: 2
 --- !u!1001 &978363543250176224
 PrefabInstance:
   m_ObjectHideFlags: 0
