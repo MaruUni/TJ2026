@@ -208,6 +208,12 @@ public class GrassDataRendererFeature : ScriptableRendererFeature
             CommandBufferPool.Release(cmd);
         }
 
+        public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
+        {
+            // El método antiguo "Execute" es ignorado por Render Graph en Unity 6.
+            // Para que el shader funcione de forma nativa, la lógica debe migrarse aquí.
+        }
+
 
         Bounds CalculateCameraBounds(Camera camera, float drawDistance)
         {
