@@ -329,10 +329,10 @@
                 {
                     "name": "",
                     "id": "39be3f57-caa8-4f4c-954d-3c2d7690c021",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "P1Scheme;P2Scheme",
+                    "groups": "P1Scheme",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false

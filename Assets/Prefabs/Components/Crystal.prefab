@@ -4913,11 +4913,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8393564880521486373}
   - component: {fileID: 1278013055519225761}
-  - component: {fileID: 5740680269989789573}
   - component: {fileID: 7931645933371335586}
   - component: {fileID: 1945625049616731527}
   - component: {fileID: 7520093514281665875}
   - component: {fileID: 2523012111005086035}
+  - component: {fileID: 8364880887751397928}
   m_Layer: 3
   m_Name: Crystal
   m_TagString: Untagged
@@ -5011,29 +5011,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!136 &5740680269989789573
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1316670898158648603}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.009540132
-  m_Height: 0.013693007
-  m_Direction: 1
-  m_Center: {x: 0.0006874576, y: 0, z: 0.0031061554}
 --- !u!114 &7931645933371335586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5144,6 +5121,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrystalHum
   humDistance: 3
+--- !u!136 &8364880887751397928
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316670898158648603}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Height: 1.303135
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.21068865, z: 0}
 --- !u!1 &1986670084675390647
 GameObject:
   m_ObjectHideFlags: 0

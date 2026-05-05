@@ -23,6 +23,20 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
         anim = GetComponent<Animator>();
     }
 
+    private void Update()
+    {
+        Crystal stuckCrystal = GetComponentInParent<Crystal>();
+        if(stuckCrystal != null)
+        {
+            stuckCrystal.ReclaimFlag(teamIndex);
+        }
+        Heal stuckHeal = GetComponentInParent<Heal>();
+        if(stuckHeal != null)
+        {
+            stuckHeal.ReclaimFlag(teamIndex);
+        }
+    }
+
     public void Initialize(int inTeamIndex, PlayerStats playerStats)
     {
         teamIndex = inTeamIndex;
@@ -39,9 +53,10 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
         cookieLight.Rotate(new Vector3(1, 0, 0) * angularSpeed * Time.fixedDeltaTime);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.CompareTag("Player" + (teamIndex + 1)))
+        Player enemyPlayer = collision.transform.GetComponentInParent<Player>();
+        if (enemyPlayer != null && enemyPlayer.gameObject.CompareTag("Player" + (teamIndex + 1)))
         {
             // ignore collision with player of the same team
             return;
@@ -52,11 +67,19 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
         rb.isKinematic = true;
         GetComponent<Collider>().enabled = false;
         transform.SetParent(collision.transform);
-
-        int oppositeTeamIndex = ((teamIndex + 1) % 2) + 1;
-        if (collision.gameObject.CompareTag("Player" + oppositeTeamIndex))
+        
+        if (enemyPlayer != null)
         {
-            enemyLight = collision.gameObject.GetComponentInChildren<AbstractLight>();
+            var lights = collision.transform.GetComponentInParent<Player>().transform.GetComponentsInChildren<AbstractLight>();
+
+            foreach (var light in lights)
+            {
+                if (light.gameObject.CompareTag("PlayerLight"))
+                {
+                    enemyLight = light;
+                    break;
+                }
+            }
             StartCoroutine(Stuck(true));
         }
         else
@@ -64,9 +87,22 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
             StartCoroutine(Stuck(false));
         }
     }
-    // stuck to player
 
-    // stuck to wall
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.GetComponentInParent<Player>() != null)
+        {
+            // ignore collision with players, since they are handled on trigger enter
+            return;
+        }
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = true;
+        GetComponent<Collider>().enabled = false;
+        transform.SetParent(collision.transform);
+        StartCoroutine(Stuck(false));
+    }
+    
     private IEnumerator Stuck(bool stuckToPlayer)
     {
         if (stuckToPlayer) { 
@@ -82,7 +118,7 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
 
     public void Eliminate()
     {
-        if (enemyLight != null)
+        if (enemyLight != null && !enemyLight.GetComponentInParent<PlayerCombat>().isDead)
         {
             enemyLight.TurnOn();
         }
