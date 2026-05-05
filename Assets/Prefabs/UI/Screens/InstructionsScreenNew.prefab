@@ -1645,7 +1645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIScreen
   screenName: 6
-  firstToNavigate: {fileID: 3643841834280767516}
+  firstToNavigate: {fileID: 8659180420558843426}
 --- !u!1 &7646554671557974702
 GameObject:
   m_ObjectHideFlags: 0
