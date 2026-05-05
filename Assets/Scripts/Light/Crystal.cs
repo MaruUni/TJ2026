@@ -351,6 +351,10 @@ public class Crystal : MonoBehaviour
 
         capturedParticles[teamIndex].Play();
 
+        //Deactivate collision with flare
+        Collider col = GetComponent<Collider>();
+        col.excludeLayers = LayerMask.GetMask("Flare");
+
         if (isLit) // A different team is trying to light the crystal, add to their score and subtract from the previous team score
         {
             GameManager.Instance.ChangeScore(teamIndex, 1);
@@ -384,6 +388,9 @@ public class Crystal : MonoBehaviour
     private void CooldownFinished()
     {
         cooldownActive = false;
+        //Reenable interaction with flare
+        Collider col = GetComponent<Collider>();
+        col.excludeLayers = 0;
     }
 
     IEnumerator CooldownCountdown()

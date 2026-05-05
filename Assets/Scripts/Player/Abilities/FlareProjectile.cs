@@ -23,6 +23,20 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
         anim = GetComponent<Animator>();
     }
 
+    private void Update()
+    {
+        Crystal stuckCrystal = GetComponentInParent<Crystal>();
+        if(stuckCrystal != null)
+        {
+            stuckCrystal.ReclaimFlag(teamIndex);
+        }
+        Heal stuckHeal = GetComponentInParent<Heal>();
+        if(stuckHeal != null)
+        {
+            stuckHeal.ReclaimFlag(teamIndex);
+        }
+    }
+
     public void Initialize(int inTeamIndex, PlayerStats playerStats)
     {
         teamIndex = inTeamIndex;
@@ -41,7 +55,8 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
 
     private void OnTriggerEnter(Collider collision)
     {
-        if(collision.transform.GetComponentInParent<Player>().gameObject.CompareTag("Player" + (teamIndex + 1)))
+        Player enemyPlayer = collision.transform.GetComponentInParent<Player>();
+        if (enemyPlayer != null && enemyPlayer.gameObject.CompareTag("Player" + (teamIndex + 1)))
         {
             // ignore collision with player of the same team
             return;
@@ -52,9 +67,8 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
         rb.isKinematic = true;
         GetComponent<Collider>().enabled = false;
         transform.SetParent(collision.transform);
-
-        int oppositeTeamIndex = ((teamIndex + 1) % 2) + 1;
-        if (collision.transform.GetComponentInParent<Player>().gameObject.CompareTag("Player" + oppositeTeamIndex))
+        
+        if (enemyPlayer != null)
         {
             var lights = collision.transform.GetComponentInParent<Player>().transform.GetComponentsInChildren<AbstractLight>();
 
@@ -68,6 +82,10 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
             }
             StartCoroutine(Stuck(true));
         }
+        else
+        {
+            StartCoroutine(Stuck(false));
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -77,6 +95,11 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
             // ignore collision with players, since they are handled on trigger enter
             return;
         }
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = true;
+        GetComponent<Collider>().enabled = false;
+        transform.SetParent(collision.transform);
         StartCoroutine(Stuck(false));
     }
     
