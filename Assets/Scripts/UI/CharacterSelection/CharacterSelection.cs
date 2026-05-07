@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -23,6 +24,7 @@ public class CharacterSelection : MonoBehaviour
     PlayerCharacter currentCharacter; // Reference to the character screen to update character info
 
     bool infoShown = false;
+    
     bool ready = false;
     public bool PlayerReady => ready;
     public UnityEvent<bool> PlayerReadyChanged; // screen subscribes to listen when player ready state changes to start game scene
@@ -133,34 +135,54 @@ public class CharacterSelection : MonoBehaviour
 
     public void OnLeft(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed) return;
+        if (!ctx.performed || (!infoShown && ready)) return;
 
         UpdateUI(ctx.action.activeControl.device.name);
-        characterButtons[currentButtonIndex].Deselect(_playerIndex);
 
-        currentButtonIndex = (currentButtonIndex - 1 + characterButtons.Length) % characterButtons.Length;
-        var selectedCharacter = characterButtons[currentButtonIndex].Select(_playerIndex);
-        currentCharacter = selectedCharacter;
-        AssignCharacterScreen(selectedCharacter);
+        if (!infoShown)
+        {
+            characterButtons[currentButtonIndex].Deselect(_playerIndex);
 
-        //Audio
-        AkUnitySoundEngine.PostEvent(GetHoverEvent(selectedCharacter), gameObject);
+            currentButtonIndex = (currentButtonIndex - 1 + characterButtons.Length) % characterButtons.Length;
+            var selectedCharacter = characterButtons[currentButtonIndex].Select(_playerIndex);
+            currentCharacter = selectedCharacter;
+            AssignCharacterScreen(selectedCharacter);
+
+            //Audio
+            AkUnitySoundEngine.PostEvent(GetHoverEvent(selectedCharacter), gameObject);
+        }
+        else
+        {
+            var selectedCharacter = characterButtons[currentButtonIndex].Select(_playerIndex);
+            characterScreens[selectedCharacter == PlayerCharacter.Peggy ? 0 : 1].ChangeInfoButton(true);
+        }
+        
     }
 
     public void OnRight(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed) return;
+        if (!ctx.performed || (!infoShown && ready)) return;
 
         UpdateUI(ctx.action.activeControl.device.name);
-        characterButtons[currentButtonIndex].Deselect(_playerIndex);
 
-        currentButtonIndex = (currentButtonIndex + 1) % characterButtons.Length;
-        var selectedCharacter = characterButtons[currentButtonIndex].Select(_playerIndex);
-        currentCharacter = selectedCharacter;
-        AssignCharacterScreen(selectedCharacter);
+        if (!infoShown)
+        {        
+            characterButtons[currentButtonIndex].Deselect(_playerIndex);
+
+            currentButtonIndex = (currentButtonIndex + 1) % characterButtons.Length;
+            var selectedCharacter = characterButtons[currentButtonIndex].Select(_playerIndex);
+            currentCharacter = selectedCharacter;
+            AssignCharacterScreen(selectedCharacter);
         
-        //Audio
-        AkUnitySoundEngine.PostEvent(GetHoverEvent(selectedCharacter), gameObject);
+            //Audio
+            AkUnitySoundEngine.PostEvent(GetHoverEvent(selectedCharacter), gameObject);
+        }
+        else
+        {
+            var selectedCharacter = characterButtons[currentButtonIndex].Select(_playerIndex);
+            characterScreens[selectedCharacter == PlayerCharacter.Peggy ? 0 : 1].ChangeInfoButton(false);
+            
+        }
     }
 
     public void OnInfo(InputAction.CallbackContext ctx)
@@ -194,10 +216,6 @@ public class CharacterSelection : MonoBehaviour
         if (layout == null) return; 
         string infoKey = GetBindingForCurrentDevice("Info", layout);   // Your action name
         string readyKey = GetBindingForCurrentDevice("Ready", layout); // Your action name
-
-        if(infoText == null) {
-            Debug.Log("?");
-        }
 
         if (infoShown)
             infoText.text = $"{infoKey} - Info";
