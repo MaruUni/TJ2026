@@ -46,6 +46,10 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
         playerLives[0].fillAmount = 1;
         playerLives[1].fillAmount = 1;
 
+        //Audio
+        MusicManager.Instance.PlayNoMusic();
+        AkUnitySoundEngine.PostEvent("Play_rain", gameObject);
+
         StartCoroutine(StartAnimations());
     }
 
@@ -92,6 +96,9 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
 
         yield return new WaitForSecondsRealtime(2);
 
+        //Audio
+        AkUnitySoundEngine.PostEvent("Play_Countdown", gameObject);
+
         timeUpText.enabled = true;
                 for (int i = 3; i > 0; i--)
         {
@@ -111,6 +118,8 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
         timeUpText.enabled = false;
 
         Notify(GameUIAnimEvents.GameStart);
+
+        MusicManager.Instance.PlayGamePlayMusic();
 
         GameManager.Instance.InitializationComplete();
     }

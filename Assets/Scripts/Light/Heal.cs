@@ -233,6 +233,7 @@ public class Heal : Subject<PlayerCombatEvent>
             yield return new WaitForSeconds(healCadence);
             animator.SetTrigger("pulse");
             teamPulseParticles[teamIndex].Play();
+            AkUnitySoundEngine.PostEvent("Play_heal", gameObject);
             Notify(PlayerCombatEvent.ReceivedHeal, new int[] { teamIndex, healAmount });
         }
     }

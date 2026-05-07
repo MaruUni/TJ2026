@@ -477,6 +477,7 @@ void FixedUpdate()
 
         //Audio
         playerSFX.PlayHurt();
+        AkUnitySoundEngine.PostEvent("Play_Punch_light", gameObject);
 
         // Damage
         Notify(PlayerCombatEvent.ReceivedDamage, new int[] { _teamIndex, _lightMeleeDamage });

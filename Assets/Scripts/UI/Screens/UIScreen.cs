@@ -28,7 +28,7 @@ public class UIScreen : MonoBehaviour
     {
         if (screenName == ScreenName.Game)
         {
-            MusicManager.Instance.PlayGamePlayMusic();
+            //MusicManager.Instance.PlayGamePlayMusic();
             AkUnitySoundEngine.SetRTPCValue("Music_LowPassFilter", 0f, null, 1000);
             AkUnitySoundEngine.SetRTPCValue("Music_Speed", 50f, null, 500);
             if (!GameManager.Instance.GameInitializing)
