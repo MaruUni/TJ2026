@@ -1105,7 +1105,7 @@ Transform:
   m_GameObject: {fileID: 3481467722084688365}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 1000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1215,7 +1215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 353931861576087707}
   - component: {fileID: 3330666517425148456}
-  - component: {fileID: 1322256145077077329}
+  - component: {fileID: 6193755446846015004}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -1303,7 +1303,7 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!114 &1322256145077077329
+--- !u!114 &6193755446846015004
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1446,7 +1446,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3867032411489376395}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2768.377, y: -1.00001, z: 1882.1794}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3639,11 +3639,11 @@ PrefabInstance:
     - target: {fileID: 2455377060254454826, guid: 73a9e154ed091fa40976e61ac174e7fa, type: 3}
       propertyPath: 'playerLives.Array.data[0]'
       value: 
-      objectReference: {fileID: 2795434076134010020}
+      objectReference: {fileID: 2649122014345923256}
     - target: {fileID: 2455377060254454826, guid: 73a9e154ed091fa40976e61ac174e7fa, type: 3}
       propertyPath: 'playerLives.Array.data[1]'
       value: 
-      objectReference: {fileID: 1439805572680652185}
+      objectReference: {fileID: 8778358337479016059}
     - target: {fileID: 2455377060254454826, guid: 73a9e154ed091fa40976e61ac174e7fa, type: 3}
       propertyPath: 'playerAbilityEnabled.Array.data[0]'
       value: 
@@ -3846,7 +3846,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8799956170673069977, guid: 73a9e154ed091fa40976e61ac174e7fa, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8838809007269125847, guid: 73a9e154ed091fa40976e61ac174e7fa, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3862,9 +3862,9 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4312955611983102545, guid: 73a9e154ed091fa40976e61ac174e7fa, type: 3}
   m_PrefabInstance: {fileID: 4258490586592709565}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1439805572680652185 stripped
+--- !u!114 &2649122014345923256 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2945922786288606756, guid: 73a9e154ed091fa40976e61ac174e7fa, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2295323775093539077, guid: 73a9e154ed091fa40976e61ac174e7fa, type: 3}
   m_PrefabInstance: {fileID: 4258490586592709565}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -3873,9 +3873,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
---- !u!114 &2795434076134010020 stripped
+--- !u!114 &8778358337479016059 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2148871074803705625, guid: 73a9e154ed091fa40976e61ac174e7fa, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4813165776304502214, guid: 73a9e154ed091fa40976e61ac174e7fa, type: 3}
   m_PrefabInstance: {fileID: 4258490586592709565}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
