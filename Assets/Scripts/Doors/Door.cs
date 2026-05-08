@@ -86,6 +86,7 @@ public class Door : MonoBehaviour
     {
         yield return new WaitForSeconds(animationStaticPartDuration);
         //Audio
+        Debug.Log("Play door sound");
         AkUnitySoundEngine.PostEvent("Play_Doors", gameObject);
         foreach (Collider collider in colliders)
             collider.enabled = enable;

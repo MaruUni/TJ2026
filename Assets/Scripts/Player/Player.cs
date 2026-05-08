@@ -55,7 +55,7 @@ public class Player : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
         playerAbility = GetComponent<AbstractAbility>();
 
         if (playerAbility == null)
-            throw new System.Exception("Player hability not assigned on inspector!");
+            throw new System.Exception("Player ability not assigned on inspector!");
 
         playerAbility.Initialize(_teamIndex, this, _playerStats);
 

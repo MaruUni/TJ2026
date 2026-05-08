@@ -433,7 +433,6 @@ void FixedUpdate()
     void StopParry(bool parrySuccesfull)
     {
         //Audio
-        AkUnitySoundEngine.PostEvent("Stop_Shield", gameObject);
 
         if (parrySuccesfull)
         {
@@ -476,6 +475,7 @@ void FixedUpdate()
 
         //Audio
         playerSFX.PlayHurt();
+        AkUnitySoundEngine.PostEvent("Play_Punch_Heavy", gameObject);
 
         // Damage
         Notify(PlayerCombatEvent.ReceivedDamage, new int[]{_teamIndex, _heavyMeleeDamage});
@@ -498,6 +498,7 @@ void FixedUpdate()
     void ParryResponse()
     {
         playerAnimator.TriggerStun();
+        AkUnitySoundEngine.PostEvent("Stop_Shield", gameObject);
 
         // light switching
         StopCoroutine(nameof(TurnLightOff)); // in case another coroutine is up
@@ -618,7 +619,6 @@ void FixedUpdate()
 
         //Audio
         AkUnitySoundEngine.PostEvent("Play_Stunned", gameObject);
-        AkUnitySoundEngine.PostEvent("Play_Punch_Heavy", gameObject);
         AkUnitySoundEngine.SetRTPCValue("Stun_Intensity", 70f, null, 0);
         
 

@@ -667,7 +667,7 @@ ParticleSystem:
     enabled: 1
     type: 8
     angle: 40
-    length: 10.848327
+    length: 7.5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
@@ -5038,10 +5038,11 @@ MonoBehaviour:
   lifeDrainPlayer2Mask:
     serializedVersion: 2
     m_Bits: 64
-  regularParticlesEmission: 200
+  regularParticlesEmission: 150
   pulseVisualsDuration: 0.5
   pulseIntensityMultiplier: 1.6
   pulseAnimationDuration: 0.1
   pulseParticlesStartLifetime: 0.3
   pulseParticlesStartSpeed: -18
-  pulseParticlesEmission: 1000
+  pulseParticlesEmission: 800
+  eyesMeshRenderer: {fileID: 0}
