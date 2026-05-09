@@ -13,6 +13,7 @@ public class MusicManager : MonoBehaviour
 
     public const string STATE_END_GAME = "GameOver";
     public const string STATE_GAMEPLAY = "GamePlay";
+    public const string STATE_STARMAN = "Starman";
     public const string STATE_NONE = "None";
 
     private void Awake()
@@ -45,4 +46,5 @@ public class MusicManager : MonoBehaviour
     public void PlayEndGameMusic() => SetMusicState(STATE_END_GAME);
     public void PlayGamePlayMusic() => SetMusicState(STATE_GAMEPLAY);
     public void PlayNoMusic() => SetMusicState(STATE_NONE);
+    public void PlayStarmanMusic() => SetMusicState(STATE_STARMAN);
 }
