@@ -33,6 +33,7 @@ RectTransform:
   - {fileID: 6412919383246166448}
   - {fileID: 6606052537624029921}
   - {fileID: 7681760781018943307}
+  - {fileID: 3114409624706149672}
   - {fileID: 4829916753914258114}
   - {fileID: 8884354214273868170}
   - {fileID: 1379217326227653979}
@@ -323,7 +324,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.53753686, y: 0.5}
   m_AnchorMax: {x: 0.53753686, y: 0.5}
-  m_AnchoredPosition: {x: -605.4199, y: -15.9578}
+  m_AnchoredPosition: {x: -605.4199, y: 19}
   m_SizeDelta: {x: 615.3315, y: 728.0737}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3894204722429856701
@@ -354,17 +355,21 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: skill de peggy
+  m_text: Peggy hurls her camera's scene light across the room, illuminating the
+    area and activating crystals along its path. If it hits an obstacle, it sticks
+    and acts as a stationary light source for a few seconds. If it hits the opponent,
+    it sticks to them, temporarily disabling their own light and turning them into
+    a moving beacon for Peggy before vanishing.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
-  m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
+  m_sharedMaterial: {fileID: -9158652586986550528, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290824375
-  m_fontColor: {r: 0.7176471, g: 0.7843138, b: 0.75294125, a: 1}
+    rgba: 4292664540
+  m_fontColor: {r: 0.86415094, g: 0.86415094, b: 0.86415094, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -381,8 +386,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -420,7 +425,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -2.055359, y: 1.4916382, z: -3.725586, w: 0.39389038}
+  m_margin: {x: 1.1250458, y: 2.8302612, z: 1.7116089, w: -4.829895}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -460,7 +465,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -391, y: -23.99998}
+  m_AnchoredPosition: {x: -355.4, y: 1.2344}
   m_SizeDelta: {x: 623.35, y: 757.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1111204011666227606
@@ -491,17 +496,26 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: backstoy de peggy
+  m_text: "Peggy Bramble, a Londoner, was always a curious and adventurous girl.
+    From a young age, she dreamed of traveling the world, meeting people, and uncovering
+    stories. Over time, that drive turned into a calling for journalism.\nBut after
+    finishing her studies, making her way in the profession proved much harder than
+    she had imagined. \nEverything changed when she heard the rumors about Charles
+    Brawlight\u2019s mansion. His strange experiments, his mysterious death, and
+    the stories of paranormal activity that still surrounded the house. Surprised
+    that no one had brought the story to the national press, Peggy saw in it the
+    opportunity she had been waiting for all these years and traveled to the small
+    town of Aberglyn to investigate.\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
-  m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
+  m_sharedMaterial: {fileID: -9158652586986550528, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290824375
-  m_fontColor: {r: 0.7176471, g: 0.7843138, b: 0.75294125, a: 1}
+    rgba: 4292664540
+  m_fontColor: {r: 0.86415094, g: 0.86415094, b: 0.86415094, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -518,14 +532,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 33
+  m_fontSizeBase: 33
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 8
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -597,7 +611,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -391, y: -23.99998}
+  m_AnchoredPosition: {x: -355.4, y: 1.2344}
   m_SizeDelta: {x: 623.35, y: 757.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6508276509760850119
@@ -628,17 +642,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: light de peggy
+  m_text: Peggy forgot her flashlight at the inn. Oops! Thankfully she found a small
+    candle in the manor.  Her lit candle emits light in a small area around her.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
-  m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
+  m_sharedMaterial: {fileID: -9158652586986550528, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290824375
-  m_fontColor: {r: 0.7176471, g: 0.7843138, b: 0.75294125, a: 1}
+    rgba: 4292664540
+  m_fontColor: {r: 0.86415094, g: 0.86415094, b: 0.86415094, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -655,8 +670,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2000,7 +2015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -391, y: -23.99998}
+  m_AnchoredPosition: {x: -355.4, y: 1.2344}
   m_SizeDelta: {x: 623.35, y: 757.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1471044621815751694
@@ -2031,17 +2046,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: light de dr hives
+  m_text: Dr. Hives' light comes from the moth eyes in his moth head. He projects
+    light in a long range cone in front of him.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
-  m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
+  m_sharedMaterial: {fileID: -9158652586986550528, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285243852
-  m_fontColor: {r: 0.8018868, g: 0.6299728, b: 0.41985583, a: 1}
+    rgba: 4290501106
+  m_fontColor: {r: 0.94716984, g: 0.85050327, b: 0.7345034, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2058,8 +2074,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2833,7 +2849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5564911760597243179
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2850,7 +2866,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.53753686, y: 0.5}
   m_AnchorMax: {x: 0.53753686, y: 0.5}
-  m_AnchoredPosition: {x: -605.4199, y: -15.9578}
+  m_AnchoredPosition: {x: -605.4199, y: 19}
   m_SizeDelta: {x: 615.3315, y: 728.0737}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8250892335868077071
@@ -2881,17 +2897,20 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: skill de dr hives
+  m_text: Dr. Hives channels a swarm of decomposer moths through the beam of light
+    projected from his eyes for a few seconds. If an opponent is caught inside the
+    beam, the moths siphon their life force, damaging the enemy while healing Dr.
+    Hives.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
-  m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
+  m_sharedMaterial: {fileID: -9158652586986550528, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285243852
-  m_fontColor: {r: 0.8000001, g: 0.6313726, b: 0.41960788, a: 1}
+    rgba: 4290566642
+  m_fontColor: {r: 0.9490196, g: 0.8509804, b: 0.7372549, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2908,8 +2927,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2947,7 +2966,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -2.055359, y: 1.4916382, z: -3.725586, w: 0.39389038}
+  m_margin: {x: 1.1250458, y: 2.8302612, z: 1.7116089, w: -4.829895}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3199,7 +3218,6 @@ RectTransform:
   - {fileID: 5540088815323659098}
   - {fileID: 755724389794329193}
   - {fileID: 7385613960583409454}
-  - {fileID: 4994707792468789727}
   m_Father: {fileID: 3762002360710593383}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3765,7 +3783,6 @@ RectTransform:
   - {fileID: 2867608888532064954}
   - {fileID: 2004357538984190916}
   - {fileID: 7800465239255510043}
-  - {fileID: 8969232073251404092}
   m_Father: {fileID: 7882429038199121284}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5010,7 +5027,6 @@ RectTransform:
   - {fileID: 8778311277436133126}
   - {fileID: 3284144685457082412}
   - {fileID: 7616559529468233291}
-  - {fileID: 3114409624706149672}
   m_Father: {fileID: 7882429038199121284}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5402,7 +5418,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.53753686, y: 0.5}
   m_AnchorMax: {x: 0.53753686, y: 0.5}
-  m_AnchoredPosition: {x: -605.4199, y: -15.9578}
+  m_AnchoredPosition: {x: -605.4199, y: 19}
   m_SizeDelta: {x: 615.3315, y: 728.0737}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &620078778873658913
@@ -5433,17 +5449,26 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Story de peggy
+  m_text: "Peggy Bramble, a Londoner, was always a curious and adventurous girl.
+    From a young age, she dreamed of traveling the world, meeting people, and uncovering
+    stories. Over time, that drive turned into a calling for journalism.\nBut after
+    finishing her studies, making her way in the profession proved much harder than
+    she had imagined. \nEverything changed when she heard the rumors about Charles
+    Brawlight\u2019s mansion. His strange experiments, his mysterious death, and
+    the stories of paranormal activity that still surrounded the house. Surprised
+    that no one had brought the story to the national press, Peggy saw in it the
+    opportunity she had been waiting for all these years and traveled to the small
+    town of Aberglyn to investigate.\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
-  m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
+  m_sharedMaterial: {fileID: -9158652586986550528, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290824375
-  m_fontColor: {r: 0.7176471, g: 0.7843138, b: 0.75294125, a: 1}
+    rgba: 4292664540
+  m_fontColor: {r: 0.86415094, g: 0.86415094, b: 0.86415094, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5460,14 +5485,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 8
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -5499,7 +5524,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -2.055359, y: 1.4916382, z: -3.725586, w: 0.39389038}
+  m_margin: {x: 1.1250458, y: 2.8302612, z: 4.0612183, w: -4.829895}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5539,7 +5564,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.53753686, y: 0.5}
   m_AnchorMax: {x: 0.53753686, y: 0.5}
-  m_AnchoredPosition: {x: -605.4199, y: -15.9578}
+  m_AnchoredPosition: {x: -605.4199, y: 19}
   m_SizeDelta: {x: 615.3315, y: 728.0737}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9178696907577864211
@@ -5570,17 +5595,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: light de dr hives
+  m_text: Dr. Hives' light comes from the moth eyes in his moth head. He projects
+    light in a long range cone in front of him.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
-  m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
+  m_sharedMaterial: {fileID: -9158652586986550528, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285243852
-  m_fontColor: {r: 0.8000001, g: 0.6313726, b: 0.41960788, a: 1}
+    rgba: 4290501106
+  m_fontColor: {r: 0.94716984, g: 0.85050327, b: 0.7345034, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5597,8 +5623,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5636,7 +5662,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -2.055359, y: 1.4916382, z: -3.725586, w: 0.39389038}
+  m_margin: {x: 1.1250458, y: 2.8302612, z: 4.0612183, w: -4.829895}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5751,8 +5777,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -390.99997, y: -23.99997}
-  m_SizeDelta: {x: 623.35, y: 757.7449}
+  m_AnchoredPosition: {x: -355.4, y: 1.2344}
+  m_SizeDelta: {x: 623.35, y: 757.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1670445110268324944
 CanvasRenderer:
@@ -5782,17 +5808,21 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: skill de peggy
+  m_text: Peggy hurls her camera's scene light across the room, illuminating the
+    area and activating crystals along its path. If it hits an obstacle, it sticks
+    and acts as a stationary light source for a few seconds. If it hits the opponent,
+    it sticks to them, temporarily disabling their own light and turning them into
+    a moving beacon for Peggy before vanishing.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
-  m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
+  m_sharedMaterial: {fileID: -9158652586986550528, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290824375
-  m_fontColor: {r: 0.7176471, g: 0.7843138, b: 0.75294125, a: 1}
+    rgba: 4292664540
+  m_fontColor: {r: 0.86415094, g: 0.86415094, b: 0.86415094, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5809,8 +5839,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6238,8 +6268,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.53753686, y: 0.5}
   m_AnchorMax: {x: 0.53753686, y: 0.5}
-  m_AnchoredPosition: {x: -605.4199, y: -15.9578}
-  m_SizeDelta: {x: 615.3315, y: 728.0737}
+  m_AnchoredPosition: {x: -594.8654, y: 19}
+  m_SizeDelta: {x: 636.44, y: 728.074}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &939594700174112180
 CanvasRenderer:
@@ -6269,17 +6299,31 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: story de dr hives
+  m_text: 'Born in Point Pleasant, West Virginia, Dr. Patrick Hives was solitary
+    prodigy obsessed with death and the study of insects that consume cadavers. He
+    harbored a fringe theory inspired by the occult writings of Charles Brawlight.
+    That insects didn''t just consume flesh, they harvested the residual life energy
+    of the dead as well.
+
+    Hives set up a secret laboratory in an abandoned facility
+    known as the "TNT Area." There, he began bombarding decomposer insects with radioactive
+    materials. Inevitably, an experiment went catastrophically wrong, mutating his
+    head into that of a monstrous moth. Though his horrific appearance terrorized
+    the town and spawned wild local legends, the accident proved his theory correct.
+    Hives gained the ability to siphon the life force of others through a swarm of
+    ravenous moths. When rumors of the happenings in Brawlight''s manor crossed the
+    Atlantic, the desire to complete his mentor''s work and study the Otherworld
+    proved irresistible. '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
-  m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
+  m_sharedMaterial: {fileID: -9158652586986550528, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285243852
-  m_fontColor: {r: 0.8000001, g: 0.6313726, b: 0.41960788, a: 1}
+    rgba: 4290566642
+  m_fontColor: {r: 0.9490196, g: 0.8509804, b: 0.7372549, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6296,8 +6340,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6335,7 +6379,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -2.055359, y: 1.4916382, z: -3.725586, w: 0.39389038}
+  m_margin: {x: 1.1250458, y: 2.8302612, z: 4.0612183, w: -4.829895}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6868,7 +6912,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5482677326622639089}
+  m_Father: {fileID: 7385613960583409454}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5.664}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6929,7 +6973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8480290298847552430
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7007,7 +7051,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4801125254304601827}
+  m_Father: {fileID: 7616559529468233291}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5.519}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7375,8 +7419,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.53753686, y: 0.5}
   m_AnchorMax: {x: 0.53753686, y: 0.5}
-  m_AnchoredPosition: {x: -605.4199, y: -15.9578}
-  m_SizeDelta: {x: 615.33, y: 728.0737}
+  m_AnchoredPosition: {x: -605.4199, y: 19}
+  m_SizeDelta: {x: 615.3315, y: 728.0737}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8085035348754945419
 CanvasRenderer:
@@ -7406,17 +7450,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: light de peggy
+  m_text: Peggy forgot her flashlight at the inn. Oops! Thankfully she found a small
+    candle in the manor.  Her lit candle emits light in a small area around her.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
-  m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
+  m_sharedMaterial: {fileID: -9158652586986550528, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4292731079
-  m_fontColor: {r: 0.7176471, g: 0.78431374, b: 0.7529412, a: 1}
+    rgba: 4292664540
+  m_fontColor: {r: 0.86415094, g: 0.86415094, b: 0.86415094, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7433,8 +7478,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7472,7 +7517,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 4.495056, y: -1.2821655, z: -1.4376221, w: -2.734497}
+  m_margin: {x: 1.1250458, y: 2.8302612, z: 4.0612183, w: -4.829895}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -7578,12 +7623,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7719333673768568929}
-  m_LocalRotation: {x: 0, y: 0, z: -0.052335896, w: 0.9986295}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalRotation: {x: -0, y: -0, z: -0.052335896, w: 0.9986295}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5703090734001032555}
+  m_Father: {fileID: 7800465239255510043}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -6}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7661,6 +7706,7 @@ RectTransform:
   - {fileID: 6328800297973724821}
   - {fileID: 4831267421025925056}
   - {fileID: 2828430083905877408}
+  - {fileID: 4994707792468789727}
   - {fileID: 6022295207257032951}
   - {fileID: 4788000425752208296}
   - {fileID: 1484387883154048607}
@@ -7705,7 +7751,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -391, y: -23.99998}
+  m_AnchoredPosition: {x: -355.4, y: 1.2344}
   m_SizeDelta: {x: 623.35, y: 757.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2276333164043629062
@@ -7736,17 +7782,33 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: backstoy de dr hives
+  m_text: 'Born in Point Pleasant, West Virginia, Dr. Patrick Hives was solitary
+    prodigy obsessed with death and the study of insects that consume cadavers. He
+    harbored a fringe theory inspired by the occult writings of Charles Brawlight.
+    That insects didn''t just consume flesh, they harvested the residual life energy
+    of the dead as well.
+
+    Hives set up a secret laboratory in an abandoned facility
+    known as the "TNT Area." There, he began bombarding decomposer insects with radioactive
+    materials. Inevitably, an experiment went catastrophically wrong, mutating his
+    head into that of a monstrous moth. Though his horrific appearance terrorized
+    the town and spawned wild local legends, the accident proved his theory correct.
+    Hives gained the ability to siphon the life force of others through a swarm of
+    ravenous moths.
+
+    When rumors of the happenings in Brawlight''s manor crossed
+    the Atlantic, the desire to complete his "mentor''s" work and study the world
+    of the dead proved irresistible. '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
-  m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
+  m_sharedMaterial: {fileID: -9158652586986550528, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285243852
-  m_fontColor: {r: 0.8018868, g: 0.6299728, b: 0.41985583, a: 1}
+    rgba: 4290566642
+  m_fontColor: {r: 0.9490196, g: 0.8509804, b: 0.7372549, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7763,14 +7825,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 8
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -7841,6 +7903,7 @@ RectTransform:
   - {fileID: 4580641053655472119}
   - {fileID: 1807681529844284702}
   - {fileID: 7340992017283842279}
+  - {fileID: 8969232073251404092}
   - {fileID: 5564911760597243179}
   - {fileID: 362196226371842937}
   - {fileID: 4573436621231388004}
@@ -7885,8 +7948,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -391, y: -24}
-  m_SizeDelta: {x: 623.35, y: 757.7449}
+  m_AnchoredPosition: {x: -355.4, y: 1.2344}
+  m_SizeDelta: {x: 623.35, y: 757.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3754444479714028640
 CanvasRenderer:
@@ -7916,17 +7979,20 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: skill de dr hives
+  m_text: Dr. Hives channels a swarm of decomposer moths through the beam of light
+    projected from his eyes for a few seconds. If an opponent is caught inside the
+    beam, the moths siphon their life force, damaging the enemy while healing Dr.
+    Hives.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
-  m_sharedMaterial: {fileID: 1584277647453659617, guid: 94e25a6453a5523418ed2d0d1d0ae548, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
+  m_sharedMaterial: {fileID: -9158652586986550528, guid: 911fd2f070fe15846b5bedd2ece8a234, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285243852
-  m_fontColor: {r: 0.8018868, g: 0.6299728, b: 0.41985583, a: 1}
+    rgba: 4290566642
+  m_fontColor: {r: 0.9490196, g: 0.8509804, b: 0.7372549, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7943,8 +8009,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
