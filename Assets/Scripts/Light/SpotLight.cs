@@ -195,6 +195,10 @@ public class SpotLight : AbstractLight
             //Pulse
             alreadyDamageThisPulse = false;
             StartCoroutine(LifeDrainPulseVisuals());
+
+            ////Audio
+            //AkUnitySoundEngine.PostEvent("Play_HabilityDrHives", gameObject);
+
             pulsesRemaining--;
         }
 
@@ -214,6 +218,9 @@ public class SpotLight : AbstractLight
 
         var psEmission = lifeDrainParticles.emission;
         psEmission.rateOverTime = pulseParticlesEmission;
+
+        //Audio
+        AkUnitySoundEngine.PostEvent("Play_HabilityDrHives", gameObject);
 
         yield return new WaitForSeconds(pulseVisualsDuration);
 

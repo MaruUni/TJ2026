@@ -1766,9 +1766,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 788067829}
     m_Modifications:
+    - target: {fileID: 988454408828999049, guid: e1e002abe0403504aad2adc28ab591ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3867032411489376395, guid: e1e002abe0403504aad2adc28ab591ba, type: 3}
       propertyPath: m_Name
       value: GameSceneUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685585445081158692, guid: e1e002abe0403504aad2adc28ab591ba, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9186202294089602877, guid: e1e002abe0403504aad2adc28ab591ba, type: 3}
       propertyPath: m_LocalPosition.x
