@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 /// <summary>
 /// Physical book on shelf, that has a reference to the idx of the text
 /// </summary>
-public class BookOnShelf : MonoBehaviour
+public class BookOnShelf : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, ISelectHandler, ISubmitHandler
 {
     BookshelfManager bookshelfManager;
 
@@ -36,6 +37,29 @@ public class BookOnShelf : MonoBehaviour
             newReadVFX.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        //Audio
+        AkUnitySoundEngine.PostEvent("Book_Move", gameObject);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        //Audio
+        AkUnitySoundEngine.PostEvent("Book_Open", gameObject);
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        //Audio
+        AkUnitySoundEngine.PostEvent("Book_Move", gameObject);
+    }
+
+    public void OnSubmit(BaseEventData eventData)
+    {
+        //Audio
+        AkUnitySoundEngine.PostEvent("Book_Open", gameObject);
+    }
     public void Initialize(BookshelfManager bookshelfManager, bool goneTrough, int entryIdx)
     {
         this.bookshelfManager = bookshelfManager;
