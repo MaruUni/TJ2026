@@ -31,8 +31,8 @@ public class MusicManager : MonoBehaviour
 
         AkUnitySoundEngine.PostEvent(musicEventName, gameObject);
         SetMusicState(STATE_TITLE);
-        AkUnitySoundEngine.SetRTPCValue("Music_Volume", 20f);
-        AkUnitySoundEngine.SetRTPCValue("SFX_Volume", 80f);
+        //AkUnitySoundEngine.SetRTPCValue("Music_Volume", 20f);
+        //AkUnitySoundEngine.SetRTPCValue("SFX_Volume", 80f);
     }
 
     public void SetMusicState(string stateName)
