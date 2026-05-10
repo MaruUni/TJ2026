@@ -13,6 +13,9 @@ public class AutoClickOnSelect : MonoBehaviour, ISelectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
+        //Audio
+        AkUnitySoundEngine.PostEvent("Select_UI", gameObject);
+
         // Verifica que el botón sea interactuable antes de pulsar
         if (_button != null && _button.interactable)
         {
