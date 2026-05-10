@@ -225,10 +225,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: InGameScreen
       objectReference: {fileID: 0}
-    - target: {fileID: 4268665715130717908, guid: 0c5504625df930b439434e5fee977bf9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -373,19 +369,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4473828157900550597, guid: becdb0492eb21fc4597e9524f7ebacd7, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1876.7332
+      value: 1858.114
       objectReference: {fileID: 0}
     - target: {fileID: 4473828157900550597, guid: becdb0492eb21fc4597e9524f7ebacd7, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 390.66
+      value: 330.4181
       objectReference: {fileID: 0}
     - target: {fileID: 4473828157900550597, guid: becdb0492eb21fc4597e9524f7ebacd7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 3.464
+      value: 6.7134
       objectReference: {fileID: 0}
     - target: {fileID: 4473828157900550597, guid: becdb0492eb21fc4597e9524f7ebacd7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -219.67
+      value: -189.55
       objectReference: {fileID: 0}
     - target: {fileID: 4592572532511205374, guid: becdb0492eb21fc4597e9524f7ebacd7, type: 3}
       propertyPath: m_SortingLayer
