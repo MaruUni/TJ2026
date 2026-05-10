@@ -40,6 +40,18 @@ public class UIScreenVictory : UIScreen, IObserver<GameEvent>
 
             Show();
 
+            // unpause game but set game elements to inactive so they dont sound or anything
+            GameObject gameElements = GameObject.FindGameObjectWithTag("GameElements");
+            gameElements.SetActive(false);
+
+            Player[] players = FindObjectsByType<Player>(FindObjectsSortMode.None);
+            foreach (Player player in players)
+            {
+                player.gameObject.SetActive(false);
+            }
+
+            GameManager.Instance.UnpauseGame();
+
             MusicManager.Instance.PlayEndGameMusic();
         }
     }
