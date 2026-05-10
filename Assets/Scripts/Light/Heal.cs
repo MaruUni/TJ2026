@@ -14,6 +14,8 @@ public class Heal : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
     [SerializeField] float animateParticlesRate = 0.1f;
     [SerializeField] GameObject contestUI;
 
+    PlayerCombat[] players = new PlayerCombat[2];
+
     Animator animator;
     Light spotlight;
 
@@ -23,6 +25,7 @@ public class Heal : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
 
     private float healCadence;
     private int healAmount;
+    private float maxLives = -1;
 
     // Capture flags
     // This can and might be done in a single List (memory optimization)
@@ -44,6 +47,7 @@ public class Heal : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
         base.AddObserversOnScene();
         healCadence = GameStatsAccess.Instance.GetHealCadence();
         healAmount = GameStatsAccess.Instance.GetHealAmount();
+        maxLives = GameStatsAccess.Instance.GetMaxLives();
 
         animator = GetComponent<Animator>();
 
@@ -69,6 +73,23 @@ public class Heal : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
 
 
         gameObject.SetActive(false);
+    }
+
+    private void Start()
+    {
+        var playerCombats = FindObjectsByType<PlayerCombat>(FindObjectsSortMode.None);
+
+        foreach(PlayerCombat pc in playerCombats)
+        {
+            if(pc.gameObject.CompareTag("Player1"))
+            {
+                players[0] = pc;
+            }
+            else if(pc.gameObject.CompareTag("Player2"))
+            {
+                players[1] = pc;
+            }
+        }
     }
 
     private void LateUpdate()
@@ -109,14 +130,16 @@ public class Heal : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
     {
         if (teamsReclaiming[0] && teamsReclaiming[1])
         {
-            if (!teamsReclaimingPrevFrame[0] || !teamsReclaimingPrevFrame[1])   // Check if this was the first frame of both teams reclaiming
-                contestedStartedCallback.Invoke();
+            if (!(players[0].GetCurrentLives() == maxLives && players[1].GetCurrentLives() == maxLives))
+            {
+                if (!teamsReclaimingPrevFrame[0] || !teamsReclaimingPrevFrame[1])   // Check if this was the first frame of both teams reclaiming
+                    contestedStartedCallback.Invoke();
 
-            // Both team are reclaiming
-            contestedUpdateCallback.Invoke();
-
+                // Both team are reclaiming
+                contestedUpdateCallback.Invoke();
+            }
         }
-        else if (teamsReclaiming[0] == true)
+        else if (teamsReclaiming[0] == true && players[0].GetCurrentLives() < maxLives)
         {
             if (!teamsReclaimingPrevFrame[0] || (teamsReclaimingPrevFrame[0] && teamsReclaimingPrevFrame[1]))
             {
@@ -128,7 +151,7 @@ public class Heal : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
                 reclaimingUpdateCallback.Invoke(0);
             }
         }
-        else if (teamsReclaiming[1] == true)
+        else if (teamsReclaiming[1] == true && players[1].GetCurrentLives() < maxLives)
         {
             if (!teamsReclaimingPrevFrame[1] || (teamsReclaimingPrevFrame[0] && teamsReclaimingPrevFrame[1]))
             {
@@ -148,14 +171,20 @@ public class Heal : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
     {
         if (teamsReclaimingPrevFrame[0] && teamsReclaimingPrevFrame[1])
         {
-            if (!teamsReclaiming[0] || !teamsReclaiming[1])    // Check if one of the teams stopped reclaiming
+            if (!teamsReclaiming[0] || !teamsReclaiming[1] || (players[0].GetCurrentLives() == maxLives && players[1].GetCurrentLives() == maxLives))    // Check if one of the teams stopped reclaiming
                 contestedFinishedCallback.Invoke();
         }
 
         // First frame of inactivity
-        else if (teamsReclaimingPrevFrame[0] || teamsReclaimingPrevFrame[1])
+        else if (teamsReclaimingPrevFrame[0])
         {
-            if(!teamsReclaiming[0] && !teamsReclaiming[1])
+            if((!teamsReclaiming[0] && !teamsReclaiming[1]) || players[0].GetCurrentLives() == maxLives)
+                reclaimingFinishedCallback.Invoke();
+        }
+
+        else if (teamsReclaimingPrevFrame[1])
+        {
+            if ((!teamsReclaiming[0] && !teamsReclaiming[1]) || players[1].GetCurrentLives() == maxLives)
                 reclaimingFinishedCallback.Invoke();
         }
     }
@@ -226,6 +255,7 @@ public class Heal : Subject<PlayerCombatEvent>, IObserver<GameUIAnimEvents>
 
     public void ReclaimFlag(int teamIndex)
     {
+        
         teamsReclaiming[teamIndex] = true;
     }
 

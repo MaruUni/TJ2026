@@ -198,7 +198,12 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
 
     }
 
-void FixedUpdate()
+    public int GetCurrentLives()
+    {
+        return currentLives;
+    }
+
+    void FixedUpdate()
     {
         if(currentThickness != targetThickness)
         {
@@ -474,11 +479,7 @@ void FixedUpdate()
         StopCoroutine(nameof(TurnLightOff));
         StartCoroutine(nameof(TurnLightOff), _heavyMeleeLightOffDuration);
 
-        StopCoroutine(LightAttack());
-
-        //Audio
-        playerSFX.PlayHurt();
-        
+        StopCoroutine(LightAttack());       
 
         // Damage
         Notify(PlayerCombatEvent.ReceivedDamage, new int[]{_teamIndex, _heavyMeleeDamage});
@@ -490,8 +491,6 @@ void FixedUpdate()
     {
         playerAnimator.TriggerLightDamage();
 
-        //Audio
-        playerSFX.PlayHurt();
         AkUnitySoundEngine.PostEvent("Play_Punch_light", gameObject);
 
         // Damage
@@ -700,14 +699,20 @@ void FixedUpdate()
                 int damageAmount = dataDamage[1];
                 if (_teamIndex == teamIndex)
                 {
-                    // Damage
-                    currentLives -= damageAmount;
+                        // Damage
+                        currentLives -= damageAmount;
+
                     Debug.Log("Player " + _teamIndex + " received damage, current lives: " + currentLives);
                         StartCoroutine(AnimateGroovyOutline(GameStatsAccess.Instance.GetDamageColor()));
 
                     if (currentLives <= 0)
                     {
                         StartCoroutine(nameof(Death));
+                    }
+                    else
+                    {
+                            //Audio
+                            playerSFX.PlayHurt();
                     }
                 }
                 break;

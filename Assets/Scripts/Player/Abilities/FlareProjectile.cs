@@ -56,6 +56,7 @@ public class FlareProjectile : Subject<PlayerCombatEvent>
 
     private void OnTriggerEnter(Collider collision)
     {
+        Debug.Log("Flare projectile collided with " + collision.gameObject.name);
         Player enemyPlayer = collision.transform.GetComponentInParent<Player>();
         if (enemyPlayer != null && enemyPlayer.gameObject.CompareTag("Player" + (teamIndex + 1)))
         {
