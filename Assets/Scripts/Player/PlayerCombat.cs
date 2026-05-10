@@ -587,6 +587,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
         playerSFX.PlayTurnOn();
         playerLight.TurnOn();
 
+        
+
         // enable actions and world interaction
         player.EnableWorldInteraction();
         isDead = false;
@@ -603,6 +605,8 @@ public class PlayerCombat : Subject<PlayerCombatEvent>, IObserver<PlayerCombatEv
     IEnumerator DeathVFX()
     {
         yield return new WaitForSeconds(_deathDuration - reviveParticles[player.GetTeamIndex()].main.duration);
+        //Audio
+        AkUnitySoundEngine.PostEvent("Play_revive", gameObject);
         reviveParticles[player.GetTeamIndex()].Play();
     }
 
