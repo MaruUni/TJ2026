@@ -71,6 +71,9 @@ public class AreaLight : AbstractLight
         yield return new WaitForSecondsRealtime(0.2f);
         flashlight.intensity = 0.1f;
 
+        //Audio
+        AkUnitySoundEngine.PostEvent("Turn_On_Peggy", gameObject);
+
         // slow increase to target
         float duration = 0.2f;
         while (true)
