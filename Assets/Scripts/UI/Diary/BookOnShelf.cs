@@ -8,33 +8,15 @@ public class BookOnShelf : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
     BookshelfManager bookshelfManager;
 
     int entryIdx;
-    ParticleSystem newReadVFX;
+    GameObject newReadVFX;
     bool goneTrough = false;
 
     void Awake()
     {
-        newReadVFX = GetComponentInChildren<ParticleSystem>();
+        newReadVFX = GetComponentInChildren<Animator>().gameObject;
 
         // start disabled
         gameObject.SetActive(false);
-    }
-    private void OnEnable()
-    {
-        if (!goneTrough)
-        {
-            newReadVFX.Clear();
-            newReadVFX.Simulate(0, true, true);
-
-            newReadVFX.Play();
-
-            Debug.Log($"VFX Play called on {gameObject.name}. IsPlaying: {newReadVFX.isPlaying}");
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (!goneTrough)
-            newReadVFX.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -65,6 +47,7 @@ public class BookOnShelf : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
         this.bookshelfManager = bookshelfManager;
         gameObject.SetActive(true);
         this.goneTrough = goneTrough;
+        newReadVFX.SetActive(!goneTrough);
         this.entryIdx = entryIdx;
     }
 
@@ -77,7 +60,7 @@ public class BookOnShelf : MonoBehaviour, IPointerEnterHandler, IPointerClickHan
         if (!goneTrough)
         {
             goneTrough = true;
-            newReadVFX.Stop();
+            newReadVFX.SetActive(!goneTrough);
             SystemGameDataStorage.Instance.GoThroughDiaryEntry(entryIdx);
         }
     }
