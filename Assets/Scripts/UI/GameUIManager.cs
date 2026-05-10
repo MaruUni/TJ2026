@@ -48,7 +48,6 @@ public class GameUIManager : Subject<GameUIAnimEvents>, IObserver<PlayerMovement
 
         //Audio
         MusicManager.Instance.PlayNoMusic();
-        AkUnitySoundEngine.PostEvent("Play_rain", gameObject);
 
         StartCoroutine(StartAnimations());
     }

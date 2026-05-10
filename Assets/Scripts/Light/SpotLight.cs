@@ -257,6 +257,10 @@ public class SpotLight : AbstractLight
 
     IEnumerator FlickerEffect()
     {
+
+        //Audio
+        AkUnitySoundEngine.PostEvent("Turn_On_Dr_Hives", gameObject);
+
         for (int i = 0; i < 10; i++)
         {
             flashlight.intensity = baseIntensity * Random.Range(0.5f, 1.2f);

@@ -36,6 +36,7 @@ public class Crystal : MonoBehaviour
     // By default using generic color
     private int teamCaptured = 2;
     private bool cooldownActive = false;
+    private bool wasCapturing = false;
 
     // Capture variables
     float reclaimPointsTotal;
@@ -83,17 +84,18 @@ public class Crystal : MonoBehaviour
 
     private void Awake()
     {
-        // Capturing started
-        reclaimingStartedCallback.AddListener((team) => AkUnitySoundEngine.PostEvent("Play_Crystal_Capturing", gameObject));
-
-        // Fully captured
-        reclaimingFinishedCallback.AddListener((team) => AkUnitySoundEngine.PostEvent("Play_Captured_Crystal", gameObject));
-
-        // Capture abandoned (inactive reset starts)
+        //Audio
         inactiveActionPerFrame.AddListener(() => {
-            if (inactiveCountdown == 0f) // first frame only
-                AkUnitySoundEngine.PostEvent("Play_Crystal_Not_Capturing", gameObject);
+            if (wasCapturing)
+            {
+                AkUnitySoundEngine.ExecuteActionOnEvent("Play_Crystal_Capturing",
+                    AkActionOnEventType.AkActionOnEventType_Stop, gameObject, 0,
+                    AkCurveInterpolation.AkCurveInterpolation_Linear);
+                wasCapturing = false;
+            }
         });
+
+        reclaimingFinishedCallback.AddListener((team) => AkUnitySoundEngine.PostEvent("Play_Captured_Crystal", gameObject));
 
         inactiveResetTime = GameStatsAccess.Instance.GetCrystalTimeToInactiveReset();
         reclaimPointsTotal = GameStatsAccess.Instance.GetTotalReclaimCrystalPoints();
@@ -371,8 +373,15 @@ public class Crystal : MonoBehaviour
 
     private void ReclaimingStarted(int teamIndex)
     {
+        wasCapturing = true;
         animateParticles = false;
         animateLight = false;
+
+        //Audio
+        float progress = reclaimPointsCurrent / reclaimPointsTotal;
+        AkUnitySoundEngine.PostEvent("Play_Crystal_Capturing", gameObject);
+        if (progress > 0)
+            AkUnitySoundEngine.SeekOnEvent("Play_Crystal_Capturing", gameObject, progress, false);
 
         captureProgressBar.gameObject.SetActive(true);
     }
